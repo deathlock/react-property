@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
 
+import {Helmet} from "react-helmet";
+
 class PropertyList extends Component{
 	render () {
 		return (
 				<div className="PropertyList">
+					<Helmet>
+						<meta charSet="utf-8" />
+						<title>KeyHeroes</title>
+						<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+						<meta name="format-detection" content="telephone=no" />
+						<meta name="keywords" content="" />
+						<meta name="description" content="" />
+            		</Helmet>
 					 <section className="top-head-area">
 				        <div className="container-fluid">
 				        	<div className="row top-nav-title">

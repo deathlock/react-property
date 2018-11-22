@@ -18,7 +18,45 @@ class App extends Component {
 						<meta name="keywords" content="" />
 						<meta name="description" content="" />
             		</Helmet>
-					hi
+					<section className="contain-sec">
+						<div className="container-fluid">
+							<div className="row">
+								<div className="col-sm-12">
+									<div className="middle-wrap">
+										<h1>Please Fill in the Location</h1>
+										<div className="form-group">
+											<input type="text" name="name" value="Denver, USA" className="form-control" />
+										</div>
+										<div className="box-wrap">
+											<div className="box-column">
+												<img src="images/icon01.png" alt="" />
+												<p>I Search for key</p>
+												<a href="#" className="search-btn">Search</a>
+											</div>
+											<div className="box-column">
+												<img src="images/icon02.png" alt="" />
+												<p>I need an agent to find for me</p>
+												<a href="#" className="search-btn">Search</a>
+											</div>
+										</div>
+										<div className="join-agent-box">
+											<div className="agent-inner">
+												<h2>Something Like this</h2>
+												<p className="find-key">Find key is The Global, Fast and better way to move on.</p>
+												<div className="join-area">
+													<div className="join-area-box">
+														<p>I have property and need an agent to sell or rent out</p>
+														<a href="#" className="search-btn">Search</a>
+													</div>
+													<a href="#" className="join-circle">Join Us As Agent</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>    		   
+					</section>
 				</div>
 			);
 	}

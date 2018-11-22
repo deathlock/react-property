@@ -10,7 +10,7 @@ export default () => (
 		<Layout>
 			<Switch>
 				<Route exact path='/' component={Home} />
-				<Route exact path='/propert-list' component={PropertyList} />
+				<Route exact path='/property-list' component={PropertyList} />
 				<Route exact path='/loader' component={Loader} />
 			</Switch>
 		</Layout>
