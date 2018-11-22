@@ -1,0 +1,207 @@
+*{ -webkit-font-smoothing:antialiased; text-shadow:none !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;}
+
+/*--------------media query css start------------------*/	
+@media (max-width:1700px) {
+.middle-wrap{ max-width:1300px; margin:0 auto;}
+
+}
+
+@media (min-width:1367px) {
+.header-sec .container-fluid{ padding-left:126px; padding-right:126px;}
+.footer-sec .container-fluid{ padding-left:126px; padding-right:126px;}
+.top-head-area .container-fluid{ padding-left:126px; padding-right:126px;}
+
+}
+
+@media (max-width:1366px) {
+.header-sec .login-wrap .modal-dialog{ max-width:1200px;}
+.header-sec .login-wrap .close{ top:0; right:10px;}
+
+.header-sec .login-wrap .left-wrap{ background-size:cover; min-height:inherit; padding:20px 50px;}
+.header-sec .login-wrap .left-wrap .form-control{ height:calc(3.5rem + 2px);}
+.header-sec .login-wrap .right-wrap{ background-size:cover; min-height:inherit; padding:25px;}
+	
+.contain-sec{ padding:100px 0;}
+.middle-wrap{ max-width:1200px;}
+.box-wrap{ margin:0 auto 150px auto;}
+
+
+
+
+
+
+
+
+
+
+
+}
+
+@media (max-width:1300px) {
+.header-sec .login-wrap .modal-dialog{ max-width:1190px;}
+
+}
+
+@media (max-width:1200px) {
+.middle-wrap{ max-width:100%;}
+	
+.box-wrap{ margin-bottom:80px;}
+.box-column p{ font-size:16px;}
+
+}
+
+@media (min-width:1101px) and (max-width:1199px) {
+.header-sec .login-wrap .modal-dialog{ max-width:1080px;}	
+.header-sec .login-wrap .left-wrap{  padding:20px;}
+.header-sec .login-wrap .right-wrap{ padding:20px;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .luxury-list li{ margin-right:20px;}
+.header-sec .login-wrap .right-wrap .buyrent-box .buy-inner a p{ font-size: 17px;}
+
+}
+
+@media (max-width:1100px) {
+.header-sec .login-wrap .modal-dialog{ max-width:98%; top:auto; margin:1.75rem auto;}
+.header-sec .login-wrap .modal.show .modal-dialog{ transform:none;}
+
+.header-sec .login-wrap .modal-content{ display:block;}
+.header-sec .login-wrap .close{ color:#FFF; top:0; right:0;}
+
+.header-sec .login-wrap .left-wrap{ width:100%;  min-height:inherit; padding:30px;}
+.header-sec .login-wrap .left-wrap .form-group{ width:50%; margin-bottom:10px;}
+.header-sec .login-wrap .left-wrap .about-btn{ margin-bottom:40px;}
+
+.header-sec .login-wrap .right-wrap{ width:100%; min-height:inherit; padding:30px;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .luxury-list li{ margin-right:100px;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .search-link{ padding:5px 5px 5px 210px;}
+
+
+
+.list-min-div{ width:50%;}
+
+
+}
+
+@media (max-width:1024px) {
+
+}
+
+@media (max-width:991px) {
+.middle-wrap h1{ font-size:34px;}
+.middle-wrap .form-group{ max-width:100%;}
+
+
+
+.top-nav-title .search-area label{ display:block; text-align:center; margin-right:0; margin-bottom:5px;}
+
+}
+
+@media (min-width:768px) and (max-width:991px) {
+.box-column{ padding:30px 5px;}
+.box-column p{ font-size:15px; line-height:22px;}	
+
+}
+
+@media (max-width:767px) {
+.header-sec .login-wrap{ text-align:center; margin-bottom:20px;}
+.key-wrap{ text-align:center; margin-top:20px;}
+
+.header-sec .login-wrap .left-wrap .form-group{ width:100%;}
+.header-sec .login-wrap .left-wrap .popup-text{ padding-left:0;}
+.header-sec .login-wrap .left-wrap .popup-text br{ display:none;}
+.header-sec .login-wrap .left-wrap .about-btn{ margin-left:0;}
+
+.header-sec .login-wrap .right-wrap .sup-luxury-box .luxury-list li{ margin-right:50px;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .search-link{ padding:5px 5px 5px 0;}
+
+
+
+
+.contain-sec{ padding:50px 0;}
+.middle-wrap h1{ font-size:28px;}
+.middle-wrap .form-group{ margin:0 auto 40px auto;}
+.middle-wrap .form-control{ height:calc(3.25rem + 2px); padding: 10px 40px;}
+.box-wrap{ margin-bottom:40px;}
+.box-column{ padding:20px;}
+.join-agent-box{ padding:30px;}
+.agent-inner h2{ font-size:26px;}
+.agent-inner .find-key{ margin-bottom:20px;}
+.join-area{ max-width:100%;}
+
+.foot-nav{ display:block; text-align:center;}
+.foot-nav .foot-nav-list{ margin-bottom:10px;}
+
+
+
+.top-nav-title{ text-align:center;}
+.top-nav-title .map-btn{ margin-bottom:10px;}
+.top-nav-title .km-text{ font-size:18px; text-align:center; margin-top:10px;}
+.list-min-div{ width:100%;}
+.estate-works-item .item-overlay .category-img{ height:auto;}
+
+}
+
+@media (max-width:640px) {
+.middle-wrap h1{ font-size:28px;}
+
+.header-sec .login-wrap .left-wrap .form-control{ font-size:16px;}
+.header-sec .login-wrap .left-wrap .popup-text{ font-size:18px; line-height:28px;}
+.header-sec .login-wrap .left-wrap .img-wrap{ align-items:flex-start;}
+.header-sec .login-wrap .left-wrap .img-wrap .img-inner img{ margin-right:5px; margin-bottom:10px;}
+
+.header-sec .login-wrap .right-wrap .buyrent-box .buy-inner a{ padding:15px;}
+.header-sec .login-wrap .right-wrap .buyrent-box .buy-inner a span{ font-size:15px;}
+.header-sec .login-wrap .right-wrap .buyrent-box .buy-inner a p{ font-size:15px;}
+
+.header-sec .login-wrap .right-wrap .sup-luxury-box{ padding:30px 15px 15px 15px; height:auto;}
+.header-sec .login-wrap .right-wrap a.premium-box{ position:relative; margin:15px auto 0 auto;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .search-link{ font-size:15px; position:static; padding:10px; border-radius:10px; display:block; margin-top:15px;}
+
+.box-column{ margin-bottom:15px;}
+
+
+
+
+
+.estate-works-item .estate-works-description .estate-details h4{ display:block !important;}
+.estate-works-item .estate-works-description .estate-details span{ display:block; margin-bottom:10px;}
+.estate-works-item .estate-works-description .estate-details h4 .small-btn{  margin-bottom:10px;}
+.estate-works-item .estate-works-description .estate-bottom-nav li a{ padding:5px;}
+
+
+}
+
+@media (max-width:480px) {
+.header-sec .login-wrap .left-wrap .img-wrap{ flex-direction: column;}
+.header-sec .login-wrap .left-wrap .img-wrap i{ margin:0 auto 15px auto;}
+.header-sec .login-wrap .left-wrap .img-wrap .img-inner img{ margin:0 5px 10px 5px;}
+
+.header-sec .login-wrap .right-wrap label{ text-align:center;}
+.search-area .form-control{ padding:10px 30px 10px 70px; margin-bottom:10px;}
+.search-area .search-btn{ position:static;}
+.header-sec .login-wrap .right-wrap .buyrent-box{ display:block; margin-bottom:0;}
+.header-sec .login-wrap .right-wrap .buyrent-box .buy-inner{ width:100%; margin-right:0; margin-bottom:15px;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .luxury-list{ flex-direction:column;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .luxury-list li{ margin-right:0; margin-bottom:15px;}
+.header-sec .login-wrap .right-wrap .sup-luxury-box .luxury-list li label{ left:70px;}
+
+.middle-wrap h1{ font-size:20px;}
+.box-wrap { display:block;}
+.box-column{ width:100%;}
+.join-agent-box{ padding:15px;}
+.agent-inner h2{ font-size:18px;}
+.agent-inner .find-key{ font-size:15px; line-height:normal;}
+.join-area{ display:block;}
+.join-area .join-area-box{ padding:15px;}
+.join-area .join-area-box p{ font-size:15px;}
+.join-area .join-circle{ margin: 20px auto 0 auto;}
+
+
+
+.top-nav-title .search-area .form-control{ padding:10px 20px 10px 40px; margin-bottom:5px;}
+
+}
+
+@media (max-width:360px) {
+.estate-works-item .estate-works-description .estate-bottom-nav li a{ text-align:center;}	
+
+}
