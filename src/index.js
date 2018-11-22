@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 
-import  configureStore  from './redux/store';
+import configureStore from './redux/store';
 import createRoutes from './routes';
 
 const initialState = {}

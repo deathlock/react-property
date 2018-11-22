@@ -15,9 +15,9 @@ module.exports = {
         ],
         loader: "babel-loader",
         options: {
-                  "presets": ["@babel/preset-env"],
-                  "plugins": ["transform-react-jsx"]
-                 }
+          "presets": ["@babel/preset-env"],
+          "plugins": ["transform-react-jsx"]
+        }
       },
       {
         test: /\.css$/,
@@ -26,24 +26,24 @@ module.exports = {
       {
         test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
-            'file-loader',
-            {
-              loader: 'image-webpack-loader',
-              options: {
-                bypassOnDebug: true, // webpack@1.x
-                disable: true, // webpack@2.x and newer
-              },
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
             },
-          ],
-        },
-        { 
-          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-          loader: "url-loader?limit=10000&mimetype=application/font-woff" 
-        },
-        { 
-          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-          loader: "file-loader" 
-        }
+          },
+        ],
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "url-loader?limit=10000&mimetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: "file-loader"
+      }
     ]
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },

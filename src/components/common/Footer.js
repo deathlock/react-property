@@ -18,7 +18,7 @@ const Footer = () => {
                         <p className="copy-text">&copy; 2018 Find Key. All Rights Reserved</p>
                     </div>
                 </div>
-            </div>  		
+            </div>
         </footer>
     );
 }

@@ -15,8 +15,15 @@ class Layout extends Component {
     }
 
     render() {
+        const pathname = this.props.location.pathname;
+        let DivClass;
+        if (pathname == "/") {
+            DivClass = "bg-img";
+        } else {
+            DivClass = "bg-img contain-remove-bg";
+        }
         return (
-            <div id="wrapper" className="bg-img">
+            <div id="wrapper" className={DivClass}>
                 <Header />
                 {this.props.children}
                 <Footer />
