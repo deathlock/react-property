@@ -16,7 +16,7 @@ class Layout extends Component {
 
     render() {
         return (
-            <div>
+            <div id="wrapper" className="bg-img">
                 <Header />
                 {this.props.children}
                 <Footer />
