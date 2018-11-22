@@ -6,8 +6,8 @@ import '../../public/css/style.css';
 import '../../public/css/responsive.css';
 import '../../public/css/font-awesome.min.css';
 
-import Header from './common/header';
-import Footer from './common/footer';
+import Header from './common/Header';
+import Footer from './common/Footer';
 
 class Layout extends Component {
     constructor(props) {
