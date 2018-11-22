@@ -3,7 +3,7 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 
 import Layout from './components/Layout';
 import Home from './components/pages/Home';
-import Loader from './components/common/Loader';
+import Loader from './components/common/loader';
 
 export default () => (
 		<Layout>
