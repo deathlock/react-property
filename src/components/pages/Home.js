@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
+import * as syncActions from '../../redux/actions/Sync.action';
 
 class App extends Component {
 	constructor(props) {
@@ -9,6 +10,15 @@ class App extends Component {
 		this.state = {
 			indexSearch: 'Denver, USA'
 		}
+	}
+
+	onChange(value){
+		 this.setState({
+			indexSearch: value
+		})
+
+		this.props.dispatch(syncActions.searchTermData({'indexSearch' : value}));
+
 	}
 
 	render() {
@@ -29,7 +39,7 @@ class App extends Component {
 								<div className="middle-wrap">
 									<h1>Please Fill in the Location</h1>
 									<div className="form-group">
-										<input type="text" name="name" value={this.state.indexSearch} onChange={(e) => this.setState({ indexSearch: e.target.value })} className="form-control" />
+										<input type="text" name="name" value={this.state.indexSearch} onChange={(e) => this.onChange(e.target.value)} className="form-control" />
 									</div>
 									<div className="box-wrap">
 										<div className="box-column">

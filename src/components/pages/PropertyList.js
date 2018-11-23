@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
+import { appReducer } from "../../redux/reducers"
 
 class PropertyList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      indexSearch: this.props.appReducer.homeData.indexSearch
+    }
+  }
   render() {
     return (
       <div className="PropertyList">
@@ -24,7 +31,7 @@ class PropertyList extends Component {
                 <div className="search-area">
                   <label>Where do you serach like</label>
                   <form action="#" method="post" className="form-area">
-                    <input type="text" name="name" value="Denver" className="form-control" />
+                    <input type="text" name="name" value={this.state.indexSearch} placeholder="Denver, USA" onChange={(e) => this.setState({ indexSearch: e.target.value })} className="form-control" />
                     <button className="search-btn">Search</button>
                   </form>
                 </div>
@@ -269,4 +276,5 @@ class PropertyList extends Component {
   }
 }
 
-export default PropertyList;
+const select = state => state;
+export default connect(select)(PropertyList);

@@ -1,1 +1,1 @@
-export const appSetData = payload => ({ type: 'APP_SET_DATA', payload });
+export const searchTermData = payload => ({ type: 'SEARCH_TERM', payload });

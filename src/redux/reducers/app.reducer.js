@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
 const initialState = {
-    data: []
+    homeData: []
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'APP_SET_DATA':
-            return _.assign({}, state, { data: action.payload.data });
+        case 'SEARCH_TERM':
+        	return _.assign({}, state, { homeData: action.payload });
         default:
             return state;
     }
