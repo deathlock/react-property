@@ -9,6 +9,6 @@ export default (state = initialState, action) => {
         case 'SEARCH_TERM':
         	return _.assign({}, state, { homeData: action.payload });
         default:
-            return state;
+          return state;
     }
 };

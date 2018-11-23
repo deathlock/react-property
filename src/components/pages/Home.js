@@ -13,12 +13,10 @@ class App extends Component {
 	}
 
 	onChange(value){
-		 this.setState({
+		this.setState({
 			indexSearch: value
 		})
-
 		this.props.dispatch(syncActions.searchTermData({'indexSearch' : value}));
-
 	}
 
 	render() {
