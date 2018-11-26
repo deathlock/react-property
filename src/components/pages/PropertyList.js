@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import { appReducer } from "../../redux/reducers"
+import * as asyncApi from "../../api/Async.api"
 
 class PropertyList extends Component {
   constructor(props) {
@@ -10,7 +11,13 @@ class PropertyList extends Component {
       indexSearch: this.props.appReducer.homeData.indexSearch
     }
   }
+
+  componentDidMount (){
+    this.props.dispatch(asyncApi.getPropertyList());
+  }
   render() {
+    const { propertyReducer } = this.props;
+    console.log('List>>>', propertyReducer);
     return (
       <div className="PropertyList">
         <Helmet>
