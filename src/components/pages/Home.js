@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
 
 import * as syncActions from '../../redux/actions/Sync.action';
-import AutoSuggestion from './autoSuggestion';
+import AutoSuggestion from './AutoSuggestion';
 
 class App extends Component {
 	constructor(props) {
