@@ -9,7 +9,7 @@ class PropertyList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      indexSearch: ""
+      indexSearch: this.props.appReducer.indexSearch
     }
   }
 

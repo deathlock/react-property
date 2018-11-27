@@ -246,3 +246,8 @@ input:checked + .slider:before{ transform:translateX(15px); -webkit-transform:tr
 .estate-works-item .estate-works-description .estate-bottom-nav li:first-child { border-left: 0px; }
 .estate-works-item .estate-works-description .estate-bottom-nav li a{ color:#525252; padding:10px; font-weight:600; display:block;}
 .estate-works-item .estate-works-description .estate-bottom-nav li a i{ color:#d9b020; padding-right:4px;}
+
+
+/** Our **/
+ul.home-autofill { width: 90%; background: #fff; margin: 0 auto; }
+ul.home-autofill li { padding: 6px; border: 0.5px solid #ccc; text-align: left; cursor: pointer; }
