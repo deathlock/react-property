@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
+import { GOOGLE_API_KEY } from '../../library/constants';
+import * as asyncApi from '../../api/Async.api';
 import * as syncActions from '../../redux/actions/Sync.action';
 import AutoSuggestion from './AutoSuggestion';
 
@@ -15,7 +18,7 @@ class App extends Component {
 			selectedPlaceId: '' ,
 			showAutoFill: true 
 		}
-
+		
 		this.onSearchLocation = this.onSearchLocation.bind(this);
 		this.handleOnBlurSearch = this.handleOnBlurSearch.bind(this);
 		this.handleOnFocusSearch = this.handleOnFocusSearch.bind(this);
@@ -26,239 +29,18 @@ class App extends Component {
 		this.setState({
 			indexSearch: value
 		});
-		this.props.dispatch(syncActions.searchTermData(value));
-		const tempData = {
-			"predictions" : [
-				 {
-						"description" : "1600 Amphitheatre Parkway, Mountain View, CA, USA",
-						"id" : "c1463fea33d18804c1145462661279db43d03276",
-						"matched_substrings" : [
-							 {
-									"length" : 4,
-									"offset" : 0
-							 },
-							 {
-									"length" : 12,
-									"offset" : 5
-							 }
-						],
-						"place_id" : "ChIJI6rdYPi5j4ARPRVRyDdc598",
-						"reference" : "ChIJI6rdYPi5j4ARPRVRyDdc598",
-						"structured_formatting" : {
-							 "main_text" : "1600 Amphitheatre Parkway",
-							 "main_text_matched_substrings" : [
-									{
-										 "length" : 4,
-										 "offset" : 0
-									},
-									{
-										 "length" : 12,
-										 "offset" : 5
-									}
-							 ],
-							 "secondary_text" : "Mountain View, CA, USA"
-						},
-						"terms" : [
-							 {
-									"offset" : 0,
-									"value" : "1600"
-							 },
-							 {
-									"offset" : 5,
-									"value" : "Amphitheatre Parkway"
-							 },
-							 {
-									"offset" : 27,
-									"value" : "Mountain View"
-							 },
-							 {
-									"offset" : 42,
-									"value" : "CA"
-							 },
-							 {
-									"offset" : 46,
-									"value" : "USA"
-							 }
-						],
-						"types" : [ "street_address", "geocode" ]
-				 },
-				 {
-						"description" : "1600 Amphitheatre Drive, Wilmington, NC, USA",
-						"id" : "6f435e2bd24c6e2baf8b0e51acc427dfa16aed64",
-						"matched_substrings" : [
-							 {
-									"length" : 17,
-									"offset" : 0
-							 }
-						],
-						"place_id" : "EiwxNjAwIEFtcGhpdGhlYXRyZSBEcml2ZSwgV2lsbWluZ3RvbiwgTkMsIFVTQSIxEi8KFAoSCT3sDZg6HqqJEblusSJ1-36IEMAMKhQKEgk97A2YOh6qiRFJdILX-jbwwg",
-						"reference" : "EiwxNjAwIEFtcGhpdGhlYXRyZSBEcml2ZSwgV2lsbWluZ3RvbiwgTkMsIFVTQSIxEi8KFAoSCT3sDZg6HqqJEblusSJ1-36IEMAMKhQKEgk97A2YOh6qiRFJdILX-jbwwg",
-						"structured_formatting" : {
-							 "main_text" : "1600 Amphitheatre Drive",
-							 "main_text_matched_substrings" : [
-									{
-										 "length" : 17,
-										 "offset" : 0
-									}
-							 ],
-							 "secondary_text" : "Wilmington, NC, USA"
-						},
-						"terms" : [
-							 {
-									"offset" : 0,
-									"value" : "1600 Amphitheatre Drive"
-							 },
-							 {
-									"offset" : 25,
-									"value" : "Wilmington"
-							 },
-							 {
-									"offset" : 37,
-									"value" : "NC"
-							 },
-							 {
-									"offset" : 41,
-									"value" : "USA"
-							 }
-						],
-						"types" : [ "route", "geocode" ]
-				 },
-				 {
-						"description" : "1600 Amphitheatre Road, Mount Lonarch VIC, Australia",
-						"id" : "92dd83def89b61b5dced0a4f446493a41f7a1a9c",
-						"matched_substrings" : [
-							 {
-									"length" : 17,
-									"offset" : 0
-							 }
-						],
-						"place_id" : "EjQxNjAwIEFtcGhpdGhlYXRyZSBSb2FkLCBNb3VudCBMb25hcmNoIFZJQywgQXVzdHJhbGlhIjESLwoUChIJJ6qkrQWg0WoRnNnQLfh0N3sQwAwqFAoSCRGN3tx4CtFqEbpEiOCWMujk",
-						"reference" : "EjQxNjAwIEFtcGhpdGhlYXRyZSBSb2FkLCBNb3VudCBMb25hcmNoIFZJQywgQXVzdHJhbGlhIjESLwoUChIJJ6qkrQWg0WoRnNnQLfh0N3sQwAwqFAoSCRGN3tx4CtFqEbpEiOCWMujk",
-						"structured_formatting" : {
-							 "main_text" : "1600 Amphitheatre Road",
-							 "main_text_matched_substrings" : [
-									{
-										 "length" : 17,
-										 "offset" : 0
-									}
-							 ],
-							 "secondary_text" : "Mount Lonarch VIC, Australia"
-						},
-						"terms" : [
-							 {
-									"offset" : 0,
-									"value" : "1600 Amphitheatre Road"
-							 },
-							 {
-									"offset" : 24,
-									"value" : "Mount Lonarch"
-							 },
-							 {
-									"offset" : 38,
-									"value" : "VIC"
-							 },
-							 {
-									"offset" : 43,
-									"value" : "Australia"
-							 }
-						],
-						"types" : [ "route", "geocode" ]
-				 },
-				 {
-						"description" : "1600 Amphitheatre Circuit, Baulkham Hills NSW, Australia",
-						"id" : "db0ba8a60648ace71980e64b1b652f41ba31e4e0",
-						"matched_substrings" : [
-							 {
-									"length" : 12,
-									"offset" : 5
-							 }
-						],
-						"place_id" : "EjgxNjAwIEFtcGhpdGhlYXRyZSBDaXJjdWl0LCBCYXVsa2hhbSBIaWxscyBOU1csIEF1c3RyYWxpYQ",
-						"reference" : "EjgxNjAwIEFtcGhpdGhlYXRyZSBDaXJjdWl0LCBCYXVsa2hhbSBIaWxscyBOU1csIEF1c3RyYWxpYQ",
-						"structured_formatting" : {
-							 "main_text" : "1600 Amphitheatre Circuit",
-							 "main_text_matched_substrings" : [
-									{
-										 "length" : 12,
-										 "offset" : 5
-									}
-							 ],
-							 "secondary_text" : "Baulkham Hills NSW, Australia"
-						},
-						"terms" : [
-							 {
-									"offset" : 0,
-									"value" : "1600"
-							 },
-							 {
-									"offset" : 5,
-									"value" : "Amphitheatre Circuit"
-							 },
-							 {
-									"offset" : 27,
-									"value" : "Baulkham Hills"
-							 },
-							 {
-									"offset" : 42,
-									"value" : "NSW"
-							 },
-							 {
-									"offset" : 47,
-									"value" : "Australia"
-							 }
-						],
-						"types" : [ "route", "geocode" ]
-				 },
-				 {
-						"description" : "1600 Amphitheatre - Sharjah - United Arab Emirates",
-						"id" : "6c758d346ed816d3ee74d96571ec7b8898d6bfad",
-						"matched_substrings" : [
-							 {
-									"length" : 12,
-									"offset" : 5
-							 }
-						],
-						"place_id" : "EjIxNjAwIEFtcGhpdGhlYXRyZSAtIFNoYXJqYWggLSBVbml0ZWQgQXJhYiBFbWlyYXRlcw",
-						"reference" : "EjIxNjAwIEFtcGhpdGhlYXRyZSAtIFNoYXJqYWggLSBVbml0ZWQgQXJhYiBFbWlyYXRlcw",
-						"structured_formatting" : {
-							 "main_text" : "1600 Amphitheatre",
-							 "main_text_matched_substrings" : [
-									{
-										 "length" : 12,
-										 "offset" : 5
-									}
-							 ],
-							 "secondary_text" : "Sharjah - United Arab Emirates"
-						},
-						"terms" : [
-							 {
-									"offset" : 0,
-									"value" : "1600"
-							 },
-							 {
-									"offset" : 5,
-									"value" : "Amphitheatre"
-							 },
-							 {
-									"offset" : 20,
-									"value" : "Sharjah"
-							 },
-							 {
-									"offset" : 30,
-									"value" : "United Arab Emirates"
-							 }
-						],
-						"types" : [ "route", "geocode" ]
-				 }
-			],
-			"status" : "OK"
-	 }
-	 if(value){
-		this.setState({ placeData: tempData.predictions });
+		this.props.dispatch(syncActions.searchTermData(value));	
+		this.fetchGooglePlaces(value);	
+	}
+
+	fetchGooglePlaces = _.debounce(async (value = "USA") => {
+		if(value != ""){
+		const placeData = await asyncApi.getGooglePlaceAutoFill({'language': 'en', 'input': value, 'key': GOOGLE_API_KEY});
+		this.setState({ placeData: placeData.predictions });
 	 } else {
 		this.setState({ placeData: [] });
 	 }		
-	}
+	}, 300);
 
 	handleOnBlurSearch = () => {
 		this.setState({ showAutoFill: false });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import "babel-polyfill";
 
 import '../../public/css/bootstrap.min.css';
 import '../../public/css/style.css';
