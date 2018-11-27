@@ -6,5 +6,3 @@ export const queryString = (obj) => {
         }
     return str.join("&");
 }
-
-
