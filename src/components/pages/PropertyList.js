@@ -9,7 +9,7 @@ class PropertyList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      indexSearch: this.props.appReducer.indexSearch
+      indexSearch: ""
     }
   }
 
@@ -25,7 +25,7 @@ class PropertyList extends Component {
   }
 
   render() {
-    const { PropertyListData, homeData } = this.props;
+    const { PropertyListData, indexSearch } = this.props;
     console.log('List>>>', PropertyListData);
     return (
       PropertyListData.length === 0
@@ -51,7 +51,7 @@ class PropertyList extends Component {
                 <div className="search-area">
                   <label>Where do you serach like</label>
                   <form action="#" method="post" className="form-area">
-                    <input type="text" name="name" value={homeData.indexSearch} placeholder="Denver, USA" onChange={(e) => this.onChange(e.target.value)} className="form-control" />
+                    <input type="text" name="name" value={indexSearch} placeholder="Denver, USA" onChange={(e) => this.onChange(e.target.value)} className="form-control" />
                     <button className="search-btn">Search</button>
                   </form>
                 </div>
@@ -121,5 +121,5 @@ PropertyList.defaultProps = {
 }
 
 
-const select = state => ({ PropertyListData : state.propertyReducer.PropertyListData.data, homeData : state.appReducer.homeData });
+const select = state => ({ PropertyListData : state.propertyReducer.PropertyListData.data, indexSearch : state.appReducer.indexSearch });
 export default connect(select)(PropertyList);
