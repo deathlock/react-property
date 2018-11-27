@@ -15,11 +15,12 @@ export const getGooglePlaceAutoFill = (term) => {
 }
 
 
+export const getPropertyList = (param) => {
+	return axios.get(baseUrl + '/propertylist?'+utils.queryString(param))
+        .then(r => r.data)
+        .catch(e => console.log("Error in propertyList", e));
+}
 
 /*********** With Reducers ***********/
 
-export const getPropertyList = () => dispatch => {
-	axios.get(baseUrl + '/propertylist')
-        .then(r => dispatch(_.propertyListData(r.data)))
-        .catch(e => console.log("Error in propertyList", e));
-}
+
