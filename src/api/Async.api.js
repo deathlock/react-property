@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import * as _ from '../redux/actions/Sync.action';
 
-const baseUrl = "http://192.168.1.111:8098/api/agent";
+const baseUrl = "http://192.168.1.111:8098/api/customer";
 
 /*********** Without Reducers ***********/
 
