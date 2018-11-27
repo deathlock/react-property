@@ -293,7 +293,7 @@ class App extends Component {
 							<div className="col-sm-12">
 								<div className="middle-wrap">
 									<h1>Please Fill in the Location</h1>
-									<div className="form-group">
+									<div className="form-group autofill-wrapper">
 										<input type="text" name="name" placeholder="Denver, USA" value={this.state.indexSearch} onBlur={() => this.handleOnBlurSearch()} onChange={(e) => this.onSearchLocation(e.target.value)} onFocus={() => this.handleOnFocusSearch()} className="form-control" />
 										<ul className="home-autofill">
 										{ 
