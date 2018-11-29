@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import InfiniteScroll from 'react-infinite-scroller';
 
+import PropertyCard from './PropertyCard';
 import { appReducer } from "../../redux/reducers";
 import * as asyncApi from "../../api/Async.api";
 import * as syncActions from '../../redux/actions/Sync.action';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class PropertyList extends Component {
   constructor(props) {
@@ -22,7 +25,9 @@ class PropertyList extends Component {
 
   async loadProperties(page){
     if(this.state.hasMoreItems){
-      const propertyList = await asyncApi.getPropertyList({start:this.state.CurrentOffset, limit: this.state.Limit});
+      const propertyList = await asyncApi.getPropertyList({start:this.state.CurrentOffset, limit: this.state.Limit})
+      .then((r)=> r)
+      .catch((e) => { toast.error('something went wrong.'); });
      
       var offset = this.state.CurrentOffset + this.state.Limit;
       var hasMoreItemscheck= true;
@@ -51,51 +56,15 @@ class PropertyList extends Component {
   render() {
     const { indexSearch } = this.props;
     const PropertyListData = this.state.PropertyListData;
-    const loader = <div className="loader">Loading ...</div>;
+    const loader = <div  key={0} className="loader">Loading ...</div>;
     var items = [];
     PropertyListData.map((property, key) => {
-        items.push(
-            <div className="list-min-div">
-              <div className="estate-works-item">
-                <div className="item-overlay">
-                  <div className="book-category clip-path-right"><a href="javascript:;">Book Tour</a></div>
-                  <div className={`category ${property.type == 'Buy' ? '' : 'rent-categ'}`}><a href="javascript:;">{property.type}</a></div>
-                  <img className="category-img" src="images/portfolio_01.jpg" alt="" />
-                  <div className="overlay-content">
-                    <h6 className="overlay-title">${property.price}</h6>
-                    <ul className="overlay-icons">
-                      <li className="mr-2">Standard</li>
-                      <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                      <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                      <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                      <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                      <li><a className="disable" href="javascript:;"><i className="fa fa-star"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="estate-works-description">
-                  <div className="estate-details">
-                    <h4 className="d-flex">
-                      <span>{property.name}</span>
-                      <a href="#" className="btn small-btn">Video Visit</a>
-                    </h4>
-                    <strong>{property.address}</strong>
-                    <p>Will equipped studio apartment From</p>
-                    <p>2.00 QM | {property.bedrooms} Bedrooms</p>
-                  </div>
-                  <ul className="estate-bottom-nav">
-                    <li><a href="javascript:;"><i className="fa fa-heart"></i> Save</a></li>
-                    <li><a href="javascript:;"><i className="fa fa-phone"></i> Contact</a></li>
-                    <li><a href="javascript:;"><i className="fa fa-handshake-o"></i> Apply</a></li>
-                    <li><a href="javascript:;"><i className="fa fa-share-alt"></i> Share</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-        );
+      const card =  <PropertyCard key={key} data={property} />;
+      items.push(card);
     });
     return (
       <div className="PropertyList">
+      <ToastContainer />
         <Helmet>
           <meta charSet="utf-8" />
           <title>KeyHeroes</title>
@@ -128,7 +97,7 @@ class PropertyList extends Component {
 
         <section className="contain-area">
           <div className="container-fluid">
-              <InfiniteScroll
+             <InfiniteScroll
                 pageStart={0}
                 loadMore={this.loadProperties.bind(this)}
                 hasMore={this.state.hasMoreItems}
@@ -137,7 +106,7 @@ class PropertyList extends Component {
                 <div className="row contain-plr">
                     {items}
                 </div>
-            </InfiniteScroll>
+              </InfiniteScroll>
           </div>
         </section>
       </div>
