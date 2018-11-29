@@ -48,6 +48,7 @@
   "dependencies": {
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-hot-loader": "^4.3.11"
+    "react-hot-loader": "^4.3.11",
+    "react-redux-loading-bar": "^4.1.0"
   }
 }

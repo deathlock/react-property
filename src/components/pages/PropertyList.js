@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import InfiniteScroll from 'react-infinite-scroller';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
-import { appReducer } from "../../redux/reducers";
 import * as asyncApi from "../../api/Async.api";
 import * as syncActions from '../../redux/actions/Sync.action';
 
@@ -18,10 +18,19 @@ class PropertyList extends Component {
       Limit:3,
       hasMoreItems: true
     }
+     
+  }
+
+  componentWillMount(){
+    //this.props.dispatch(showLoading());  
+  }
+
+  componentDidMount(){    
+    //this.props.dispatch(hideLoading());  
   }
 
   async loadProperties(page){
-    if(this.state.hasMoreItems){
+    if(this.state.hasMoreItems){     
       const propertyList = await asyncApi.getPropertyList({start:this.state.CurrentOffset, limit: this.state.Limit});
      
       var offset = this.state.CurrentOffset + this.state.Limit;
@@ -132,7 +141,8 @@ class PropertyList extends Component {
                 pageStart={0}
                 loadMore={this.loadProperties.bind(this)}
                 hasMore={this.state.hasMoreItems}
-                loader={loader}>
+                loader={loader}
+                >
 
                 <div className="row contain-plr">
                     {items}

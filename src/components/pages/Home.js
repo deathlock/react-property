@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 import { GOOGLE_API_KEY } from '../../library/constants';
 import * as asyncApi from '../../api/Async.api';

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import "babel-polyfill";
+import LoadingBar from 'react-redux-loading-bar';
 
 import '../../public/css/bootstrap.min.css';
 import '../../public/css/style.css';
@@ -11,10 +12,6 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 
 class Layout extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const pathname = this.props.location.pathname;
         let DivClass;
@@ -25,6 +22,7 @@ class Layout extends Component {
         }
         return (
             <div id="wrapper" className={DivClass}>
+                <LoadingBar style={{ backgroundColor: 'yellow', height: '5px' }} />
                 <Header />
                 {this.props.children}
                 <Footer />
