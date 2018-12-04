@@ -20,6 +20,16 @@ export const getPropertyList = (param) => {
         .then(r => r.data);
 }
 
+export const registerCustomer = (bodyFormData) => {
+        return axios({
+                method: 'post',
+                url: baseUrl + '/registration',
+                data: bodyFormData
+                //config: { headers: {'Content-Type': 'multipart/form-data' }}
+                })
+                .then((r) => r);
+}
+
 /*********** With Reducers ***********/
 
 

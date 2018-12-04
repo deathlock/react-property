@@ -87,7 +87,7 @@ class PropertyList extends React.PureComponent {
       <ToastContainer />
         <Helmet>
           <meta charSet="utf-8" />
-          <title>KeyHeroes</title>
+          <title>KeyHeroes - Property List</title>
           <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
           <meta name="format-detection" content="telephone=no" />
           <meta name="keywords" content="" />
