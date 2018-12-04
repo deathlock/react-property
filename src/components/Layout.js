@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import "babel-polyfill";
-import LoadingBar from 'react-redux-loading-bar';
+import LoadingBar, { showLoading } from 'react-redux-loading-bar';
+import { connect } from 'react-redux';
 
 import '../../public/css/bootstrap.min.css';
 import '../../public/css/style.css';
@@ -12,6 +13,14 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 
 class Layout extends Component {
+    componentWillMount(){
+        //this.props.dispatch(showLoading());
+    }
+
+    componentDidMount(){
+
+    }
+
     render() {
         const pathname = this.props.location.pathname;
         let DivClass;
@@ -20,9 +29,10 @@ class Layout extends Component {
         } else {
             DivClass = "bg-img contain-remove-bg";
         }
+        
         return (
             <div id="wrapper" className={DivClass}>
-                <LoadingBar style={{ backgroundColor: 'yellow', height: '5px' }} />
+                <LoadingBar style={{ backgroundColor: 'yellow', height: '5px', position:"fixed", zIndex: 10000 }} />
                 <Header />
                 {this.props.children}
                 <Footer />
@@ -31,4 +41,5 @@ class Layout extends Component {
     }
 }
 
-export default withRouter(Layout);
+const store = select => select;
+export default withRouter(connect(store)(Layout));

@@ -30,7 +30,8 @@ class App extends Component {
 		this.setState({
 			indexSearch: value
 		});
-		this.props.dispatch(syncActions.searchTermData(value));	
+		
+		this.props.dispatch(syncActions.searchTermData(value));		
 		this.fetchGooglePlaces(value);	
 	}
 
