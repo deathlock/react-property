@@ -4,3 +4,7 @@ export const setPlaceId = payload => ({ type: 'SET_PLACE_ID', payload });
 
 /***** Property Listing */
 export const propertyListData = payload => ({ type: 'PROPERTY_LIST', payload });
+
+/**** User Token */
+export const userLoggedIn = payload => ({type: 'SET_LOGGEDIN_STATE', payload});
+export const userTokenData = payload => ({ type: 'USER_TOKEN', payload });

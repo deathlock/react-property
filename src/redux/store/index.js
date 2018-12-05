@@ -9,7 +9,7 @@ import rootReducer from '../reducers';
 const persistConfig = {
   key: 'root',
 	storage: localForage,
-	whitelist: ['appReducer']
+	whitelist: ['appReducer','userReducer']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

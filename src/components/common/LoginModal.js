@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import ReactPhoneInput from 'react-phone-input-2';
+import { toast } from 'react-toastify';
+import _ from 'lodash';
 
 import * as asyncApi from '../../api/Async.api';
+import * as syncActions from '../../redux/actions/Sync.action';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -9,7 +14,7 @@ class LoginModal extends Component {
     this.state = {
       loggedin : false
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(event){
     event.preventDefault();
@@ -17,29 +22,45 @@ class LoginModal extends Component {
     const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
     data.set('contact_number',contact_number);
     
-    const r = asyncApi.loginCustomer(data).then((r)=> r);
-    console.log(r);
+    asyncApi.loginCustomer(data).then((r)=> {
+      r = r.data;
+      if(r.code && r.code == 200){
+        this.props.dispatch(syncActions.userLoggedIn(true));
+        this.props.dispatch(syncActions.userTokenData(r.data[0].token));
+        toast.success('LoggedIn successfully.');
+        // this.props.history.push('user-profile');
+        // document.getElementsByClassName("close")[0].click();
+      }else{
+        toast.error('Credentials does not match');
+      }
+    }).catch((e) => {
+      toast.error('something went wrong.');
+    });
+  }
+
+  register(e){
+    e.preventDefault();
   }
 
   render() {
     return (
-          <div className="modal fade" id="smallShoes" tabIndex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+        <div className="modal fade" id="smallShoes" tabIndex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
           <div className="modal-dialog ">
               <div className="modal-content">
                   <div className="left-wrap">
                       <div className="left-inner">
                         <form onSubmit={this.handleSubmit}>
-                              <div className="form-group login-phone">
-                                <ReactPhoneInput defaultCountry={'us'} placeholder="Login with your Smartphone" inputExtraProps={{name: 'contact_number'}} inputClass="form-control"/>
-                              </div>
-                              <div className="form-group password">
-                                <input type="password" id="password" name="password" placeholder="Password" className="form-control" />
-                              </div>
-                              <div className="d-flex">
-                                <button type="submit" className="btn-orange-lg w-50 mr-2">Login</button>
-                                  <button className="btn-orange-lg w-50">Register</button>
-                              </div>
-                          </form>
+                          <div className="form-group login-phone">
+                            <ReactPhoneInput defaultCountry={'us'} placeholder="Login with your Smartphone" inputExtraProps={{name: 'contact_number'}} inputClass="form-control"/>
+                          </div>
+                          <div className="form-group password">
+                            <input type="password" id="password" name="password" placeholder="Password" className="form-control" />
+                          </div>
+                          <div className="d-flex">
+                            <button type="submit" className="btn-orange-lg w-50 mr-2">Login</button>
+                            <button className="btn-orange-lg w-50" onClick={this.register}>Register</button>
+                          </div>
+                        </form>
                         <p className="popup-text">You are here as a Guest. Apply your<br />
                           search criteria here and save<br />
                           upto 5 keys. (IP)</p>
@@ -116,8 +137,9 @@ class LoginModal extends Component {
               </div>
           </div>
         </div>
-    );
+      );    
   }
 }
 
-export default LoginModal;
+const select = state => state;
+export default withRouter(connect(select)(LoginModal));

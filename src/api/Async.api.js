@@ -48,7 +48,7 @@ export const loginCustomer = (bodyFormData) => {
                 method: 'post',
                 url: baseUrl + '/login',
                 data: bodyFormData,
-                config: { headers: {'Content-Type': 'application/json' }}
+                config: { headers: {'Content-Type': 'application/json', 'Accept': 'application/json' }}
                 })
                 .then((r) => r);
 }
