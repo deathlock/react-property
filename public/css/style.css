@@ -1254,3 +1254,5 @@ ul.home-autofill li { padding: 6px; border: 0.5px solid #ccc; text-align: left; 
 .register-phone .react-tel-input input[type=tel]{ width: 100%; height: calc(4.05rem + 2px); border-radius: 35px; padding-left: 50px !important;}
 .register-phone .react-tel-input .flag-dropdown {	border-radius: 35px 0 0 35px;}
 .register-inner .otp-text{top: 50px;}
+.register-phone .react-tel-input .selected-flag{border-radius: 35px 0px 0px 35px;}
+.register-phone .react-tel-input .flag-dropdown.open-dropdown, .register-phone .react-tel-input .flag-dropdown.open-dropdown .selected-flag{border-radius: 35px 0px 0px 35px;}

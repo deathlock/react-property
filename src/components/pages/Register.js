@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
 import ReactPhoneInput from 'react-phone-input-2';
+import {  toast } from 'react-toastify';
+
+import * as asyncApi from '../../api/Async.api';
+
 
 class Register extends Component {
   constructor(props){
     super(props);
 
+    this.state = {
+      phone: ""
+    }
+
     this.handleRegister = this.handleRegister.bind(this);
+    this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    this.sendOTP = this.sendOTP.bind(this);
   }
 
   handleRegister(e){
-
+    e.preventDefault();
+    
   }
-  handleOnChange(value) {
-    console.log("check", value);
- }
+  
+  handlePhoneChange(value) {
+    this.setState({phone: value});
+  }
+
+  sendOTP(){
+    asyncApi.sendOTP(this.state.phone.replace(/[- )(]/g,'')).then((r) => {
+      toast.success('OTP sent to '+this.state.phone);
+    }).catch((e) => {
+      toast.error('something went wrong.');
+    });
+  }
+
   render(){
     return(
         <section className="register-section">
@@ -26,7 +47,7 @@ class Register extends Component {
                   <p className="font-20  text-black mb-4 xs-font-16">Welcome, Please<br />
                   Register for you account</p>
                   <div className="d-flex xs-d-block">
-                    <div className="form-group w-50 mr-3 mb-4 xs-w-100">
+                    <div className="form-group w-50 mr-2 mb-4 xs-w-100">
                       <label className="form-label mb-1 font-16">First Name</label>
                       <input type="text" name="first_name" className="form-control font-16 bord-gray pl-4 pr-4 input-hgt-lg input-hgt-md" />
                     </div>
@@ -36,9 +57,9 @@ class Register extends Component {
                     </div>
                   </div>
                   <div className="d-flex xs-d-block">
-                    <div className="form-group w-50 mr-3 mb-4 position-relative xs-w-100 register-phone">
+                    <div className="form-group w-50 mr-2 mb-4 position-relative xs-w-100 register-phone">
                       <label className="form-label mb-1 font-16">Mobile Number</label>
-                      <ReactPhoneInput defaultCountry={'us'} inputClass="form-control font-16 bord-gray pl-4 pr-4 input-hgt-lg input-hgt-md" onChange={this.handleOnChange}/>
+                      <ReactPhoneInput value={this.state.phone} countryCodeEditable={false} autoFormat={true} defaultCountry={'us'} inputExtraProps={{name: 'contact_number'}} inputClass="form-control font-16 bord-gray pl-4 pr-4 input-hgt-lg input-hgt-md" onChange={this.handlePhoneChange}/>
                       <span onClick={this.sendOTP} style={{cursor: "pointer"}} className="otp-text text-black">Send OTP</span>
                     </div>
                     <div className="form-group w-50 mb-4 xs-w-100">
