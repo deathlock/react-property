@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+import ReactPhoneInput from 'react-phone-input-2';
+
+import * as asyncApi from '../../api/Async.api';
 
 class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      smartPhoneLogin: "Login with your Smartphone"
+      loggedin : false
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  handleSubmit(event){
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
+    data.set('contact_number',contact_number);
+    
+    const r = asyncApi.loginCustomer(data).then((r)=> r);
+    console.log(r);
   }
 
   render() {
@@ -15,15 +28,15 @@ class LoginModal extends Component {
               <div className="modal-content">
                   <div className="left-wrap">
                       <div className="left-inner">
-                        <form action="#" method="post">
-                              <div className="form-group">
-                                <input type="text" name="name" value="Login with your Smartphone" className="form-control" />
+                        <form onSubmit={this.handleSubmit}>
+                              <div className="form-group login-phone">
+                                <ReactPhoneInput defaultCountry={'us'} placeholder="Login with your Smartphone" inputExtraProps={{name: 'contact_number'}} inputClass="form-control"/>
                               </div>
                               <div className="form-group password">
-                                <input type="text" name="name" value="Password" className="form-control" />
+                                <input type="password" id="password" name="password" placeholder="Password" className="form-control" />
                               </div>
                               <div className="d-flex">
-                                <button className="btn-orange-lg w-50 mr-2">Login</button>
+                                <button type="submit" className="btn-orange-lg w-50 mr-2">Login</button>
                                   <button className="btn-orange-lg w-50">Register</button>
                               </div>
                           </form>

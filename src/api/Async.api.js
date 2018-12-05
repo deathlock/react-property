@@ -30,6 +30,17 @@ export const registerCustomer = (bodyFormData) => {
                 .then((r) => r);
 }
 
+
+export const loginCustomer = (bodyFormData) => {
+        return axios({
+                method: 'post',
+                url: baseUrl + '/login',
+                data: bodyFormData,
+                config: { headers: {'Content-Type': 'application/json' }}
+                })
+                .then((r) => r);
+}
+
 /*********** With Reducers ***********/
 
 
