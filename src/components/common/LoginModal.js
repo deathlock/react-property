@@ -16,26 +16,34 @@ class LoginModal extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleSubmit(event){
+
+  async handleSubmit(event){
     event.preventDefault();
     const data = new FormData(event.target);
     const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
     data.set('contact_number',contact_number);
     
-    asyncApi.loginCustomer(data).then((r)=> {
+    await asyncApi.loginCustomer(data).then((r)=> {
       r = r.data;
       if(r.code && r.code == 200){
         this.props.dispatch(syncActions.userLoggedIn(true));
         this.props.dispatch(syncActions.userTokenData(r.data[0].token));
         toast.success('LoggedIn successfully.');
-        // this.props.history.push('user-profile');
-        // document.getElementsByClassName("close")[0].click();
+         this.props.history.push('user-profile');
       }else{
         toast.error('Credentials does not match');
       }
     }).catch((e) => {
       toast.error('something went wrong.');
     });
+
+    this.closeModal();
+  }
+
+  closeModal(){
+     document.getElementsByClassName("close")[0].click();
+     document.querySelector('body').classList.remove('modal-open');
+     document.getElementsByClassName("modal-backdrop")[0].remove();
   }
 
   register(e){

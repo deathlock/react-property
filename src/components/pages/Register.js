@@ -20,9 +20,6 @@ class Register extends Component {
 
   handleRegister(e){
     e.preventDefault();
-    document.getElementsByClassName("log-btn")[0].click();
-    return;
-    
     const data = new FormData(e.target);
     const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
     data.set('contact_number',contact_number);
@@ -31,7 +28,10 @@ class Register extends Component {
     .then((r) => {
       r = r.data; 
       if(r.code && r.code == 200) {
-        toast.success('Register Succesful.');
+        document.getElementById("registerForm").reset();
+        this.setState({phone: ""});
+        toast.success('Register Succesful!! Please login to continue.');
+        document.getElementsByClassName("log-btn")[0].click();
       }
     }).catch((e) => {
       toast.error('something went wrong.');
@@ -57,7 +57,7 @@ class Register extends Component {
           <div className="row d-flex">
             <div className="col-lg-6 white-bg-img d-flex align-items-center">
               <div className="register-inner w-100">
-                <form method="post" onSubmit={this.handleRegister}>
+                <form method="post" onSubmit={this.handleRegister} id="registerForm">
                   <h3 className="font-weight-black mb-3"><span className="text-gray">WE ARE</span> KEYHEROES</h3>
                   <p className="font-20  text-black mb-4 xs-font-16">Welcome, Please<br />
                   Register for you account</p>
