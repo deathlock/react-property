@@ -21,23 +21,24 @@ export const getPropertyList = (param) => {
 }
 
 export const sendOTP = (phone) => {
-        console.log("before", phone);
-        let data = JSON.stringify({ "contact_number": phone });
-        console.log("a", data);
-        return axios({  
+        const data = new FormData();
+        data.set('contact_number',phone);
+    
+        return axios({
                 method: 'post',
                 url: baseUrl + '/saveotp',
                 data: data,
-                config: { headers: {'Content-Type': 'application/json', 'Accept': 'application/json' }}
-                }).then((r) => r);
+                config: { headers: {'Content-Type': 'application/json' }}
+                })
+                .then((r) => r);
 }
 
 export const registerCustomer = (bodyFormData) => {
         return axios({
                 method: 'post',
                 url: baseUrl + '/registration',
-                data: bodyFormData
-                //config: { headers: {'Content-Type': 'multipart/form-data' }}
+                data: bodyFormData,
+                config: { headers: {'Content-Type': 'application/json', 'Accept': 'application/json' }}
                 })
                 .then((r) => r);
 }

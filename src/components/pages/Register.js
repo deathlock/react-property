@@ -20,7 +20,22 @@ class Register extends Component {
 
   handleRegister(e){
     e.preventDefault();
+    document.getElementsByClassName("log-btn")[0].click();
+    return;
     
+    const data = new FormData(e.target);
+    const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
+    data.set('contact_number',contact_number);
+    
+    const r = asyncApi.registerCustomer(data)
+    .then((r) => {
+      r = r.data; 
+      if(r.code && r.code == 200) {
+        toast.success('Register Succesful.');
+      }
+    }).catch((e) => {
+      toast.error('something went wrong.');
+    });
   }
   
   handlePhoneChange(value) {
