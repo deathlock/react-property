@@ -9,8 +9,7 @@ import PropertyCard from './PropertyCard';
 import NoMoreData from '../common/NoMoreData';
 import * as asyncApi from "../../api/Async.api";
 import * as syncActions from '../../redux/actions/Sync.action';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {  toast } from 'react-toastify';
 
 class PropertyList extends React.PureComponent {
   constructor(props) {
@@ -84,7 +83,6 @@ class PropertyList extends React.PureComponent {
     }
     return (
       <div className="PropertyList">
-      <ToastContainer />
         <Helmet>
           <meta charSet="utf-8" />
           <title>KeyHeroes - Property List</title>
