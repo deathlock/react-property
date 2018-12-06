@@ -15,6 +15,7 @@ class LoginModal extends Component {
       loggedin : false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.register = this.register.bind(this);
   }
 
   async handleSubmit(event){
@@ -48,6 +49,10 @@ class LoginModal extends Component {
 
   register(e){
     e.preventDefault();
+    document.getElementsByClassName("close")[0].click();
+    document.querySelector('body').classList.remove('modal-open');
+    document.getElementsByClassName("modal-backdrop")[0].remove();
+    this.props.history.push('register');
   }
 
   render() {

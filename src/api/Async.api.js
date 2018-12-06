@@ -2,7 +2,9 @@ import axios from 'axios';
 import * as utils from '../library/utils';
 import * as _ from '../redux/actions/Sync.action';
 
-const baseUrl = "http://192.168.1.111:8098/api/customer";
+//const baseUrl = "http://192.168.1.111:8098/api/customer";
+/**BTDEMO*/
+const baseUrl = "http://www.bacancy.com/btdemo/find-key/api/customer";
 
 /*********** Without Reducers ***********/
 
