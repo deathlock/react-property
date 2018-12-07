@@ -18,19 +18,20 @@ class LoginModal extends Component {
     this.register = this.register.bind(this);
   }
 
-  async handleSubmit(event){
+  handleSubmit(event){
     event.preventDefault();
     const data = new FormData(event.target);
     const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
     data.set('contact_number',contact_number);
     
-    await asyncApi.loginCustomer(data).then((r)=> {
+    asyncApi.loginCustomer(data).then((r)=> {
       r = r.data;
       if(r.code && r.code == 200){
         this.props.dispatch(syncActions.userLoggedIn(true));
         this.props.dispatch(syncActions.userTokenData(r.data[0].token));
         toast.success('LoggedIn successfully.');
          this.props.history.push('user-profile');
+         this.closeModal();
       }else{
         toast.error('Credentials does not match');
       }
@@ -38,7 +39,7 @@ class LoginModal extends Component {
       toast.error('something went wrong.');
     });
 
-    this.closeModal();
+    
   }
 
   closeModal(){
