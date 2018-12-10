@@ -9,6 +9,7 @@ import PropertyList from './components/pages/PropertyList';
 import UserProfile from './components/pages/UserProfile';
 import AgentProfile from './components/pages/AgentProfile';
 import Register from './components/pages/Register';
+import NoMatch from './components/common/NoMatch';
 
 
 export default () => (
@@ -20,6 +21,7 @@ export default () => (
 			<Route exact path='/agent-profile' component={AgentProfile} />
 			<Route exact path='/register' component={Register} />
 			<PrivateRoute exact path='/user-profile' component={UserProfile} />
+			<Route component={NoMatch} />
 		</Switch>
 	</Layout>
 );
