@@ -20,9 +20,15 @@ class Middleware extends Component {
           )
         }
     } else {
-      return (
-        <Redirect to="/" push />
-      )
+      if(this.props.onlyLoggedout == true){
+          return (
+            <RenderThis {...this.props} />
+          )
+        }else{
+          return (
+            <Redirect to="/" push />
+          )
+        }
     }
     
   }
