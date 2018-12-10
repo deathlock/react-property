@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import LoginModal from './LoginModal';
+import * as syncActions from '../../redux/actions/Sync.action';
 
 class Header extends Component{
   constructor(props) {
     super(props);
     this.state = {
     }
+
+    this.logout = this.logout.bind(this);
+  }
+  logout(){
+    this.props.dispatch(syncActions.userLoggedIn(false));
+    //console.log(this.props);
+    this.props.history.push("/");
   }
   render (){
     const { userReducer } = this.props;
@@ -23,6 +31,9 @@ class Header extends Component{
                 <Link to="/user-profile" className="log-btn">
                   <img src="images/profile.png" alt="" />
                   Hello, {userProfile.first_name} {userProfile.last_name}
+                  { isUserLoggedIn &&
+                    <i className="icon-logout fa fa-sign-out" onClick={this.logout} />
+                  }
                 </Link>
               </div>
               <div className="col-md-6 text-center">
@@ -67,4 +78,4 @@ class Header extends Component{
   }
 }
 const select = state => state;
-export default connect(select)(Header);
+export default withRouter(connect(select)(Header));
