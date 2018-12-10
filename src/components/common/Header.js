@@ -13,6 +13,7 @@ class Header extends Component{
   render (){
     const { userReducer } = this.props;
     const isUserLoggedIn = userReducer.isLoggedin;
+    const userProfile = userReducer.userProfileDetails[0];
     if(isUserLoggedIn){
       return (
         <header className="header-sec">
@@ -21,7 +22,7 @@ class Header extends Component{
               <div className="col-md-3 login-wrap">
                 <Link to="/user-profile" className="log-btn">
                   <img src="images/profile.png" alt="" />
-                  Hello, Guest
+                  Hello, {userProfile.first_name} {userProfile.last_name}
                 </Link>
               </div>
               <div className="col-md-6 text-center">

@@ -56,6 +56,16 @@ export const loginCustomer = (bodyFormData) => {
                 .then((r) => r);
 }
 
+export const getProfile = (bodyFormData) => {
+        return axios({
+                method: 'get',
+                url: baseUrl + '/profile',
+                data: bodyFormData,
+                headers: {'Accept': 'application/json', 'Authorization' : 'Bearer '+ bodyFormData.token }
+                })
+                .then((r) => r);
+}
+
 /*********** With Reducers ***********/
 
 

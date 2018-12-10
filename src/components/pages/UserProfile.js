@@ -1,12 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import * as asyncApi from "../../api/Async.api";
+import * as syncActions from '../../redux/actions/Sync.action';
+import {  toast } from 'react-toastify';
+
 class UserProfile extends Component {
   constructor(props){
     super(props);
+    const { userReducer } = this.props;
+    const isUserLoggedIn = userReducer.isLoggedin;
+    console.log(isUserLoggedIn);
+    if(!isUserLoggedIn){
+      this.props.history.push("/");
+    }
+  }
+
+  componentDidMount(){
+    asyncApi.getProfile({token:this.props.userReducer.userToken})
+    .then((r)=> { 
+      r = r.data;
+      if(r.code && r.code == 200){
+        this.props.dispatch(syncActions.userProfileData(r.data));
+      }else{
+        toast.error('something went wrong.');
+      }
+    })
+    .catch((e) => { toast.error('something went wrong.'); });
+
   }
 
   render(){
+    const userProfile = this.props.userReducer.userProfileDetails[0];
+    //console.log('userProfile', userProfile);
     return (
       <div>
       <section className="profile-show-section py-6 white-bg-img">
@@ -19,7 +45,7 @@ class UserProfile extends Component {
               <div className="user-profile-details">
                 <div className="row align-items-center mb-3">
                   <div className="col-lg-6 col-md-12 col-sm-12 xs-mt-3">
-                    <h3 className="mb-2 font-weight-black">Hello John</h3>
+                    <h3 className="mb-2 font-weight-black">{userProfile.first_name} {userProfile.last_name}</h3>
                     <h4>USA</h4>
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12 text-right md-text-left xs-text-center md-mt-3">

@@ -2,7 +2,8 @@ import _ from 'lodash';
 
 const initialState = {
 	userToken : "",
-	isLoggedin:false
+	isLoggedin:false,
+	userProfileDetails:[{'first_name' : 'Hello', 'last_name': 'Guest'}]
 }
 
 export default (state = initialState, action) =>{
@@ -11,6 +12,8 @@ export default (state = initialState, action) =>{
 			return _.assign({}, state, { userToken: action.payload });
 		case 'SET_LOGGEDIN_STATE':
 			return _.assign({}, state, { isLoggedin: action.payload });
+		case 'USER_PROFILE_DATA':
+			return _.assign({}, state, { userProfileDetails: action.payload });
 		default:
       return state;
 	}
