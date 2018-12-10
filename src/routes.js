@@ -1,6 +1,7 @@
 import React from 'react';
-import { Redirect, Switch, Route } from 'react-router-dom';
+import {  Switch, Route, BrowserRouter } from 'react-router-dom';
 
+import PrivateRoute from './library/middleware'
 import Layout from './components/Layout';
 import Home from './components/pages/Home';
 import Loader from './components/common/Loader';
@@ -16,9 +17,9 @@ export default () => (
 			<Route exact path='/' component={Home} />
 			<Route exact path='/loader' component={Loader} />
 			<Route exact path='/property-list' component={PropertyList} />
-			<Route exact path='/user-profile' component={UserProfile} />
 			<Route exact path='/agent-profile' component={AgentProfile} />
 			<Route exact path='/register' component={Register} />
+			<PrivateRoute exact path='/user-profile' component={UserProfile} />
 		</Switch>
 	</Layout>
 );

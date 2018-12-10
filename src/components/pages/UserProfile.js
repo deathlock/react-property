@@ -8,12 +8,6 @@ import {  toast } from 'react-toastify';
 class UserProfile extends Component {
   constructor(props){
     super(props);
-    const { userReducer } = this.props;
-    const isUserLoggedIn = userReducer.isLoggedin;
-    console.log(isUserLoggedIn);
-    if(!isUserLoggedIn){
-      this.props.history.push("/");
-    }
   }
 
   componentDidMount(){

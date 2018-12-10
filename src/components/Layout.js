@@ -15,12 +15,9 @@ import Header from './common/Header';
 import Footer from './common/Footer';
 
 class Layout extends Component {
-    componentWillMount(){
-        //this.props.dispatch(showLoading());
-    }
-
-    componentDidMount(){
-
+    constructor(props){
+        super(props);
+        //console.log(this.props);
     }
 
     render() {
@@ -36,7 +33,7 @@ class Layout extends Component {
             <div id="wrapper" className={DivClass}>
                 <LoadingBar style={{ backgroundColor: 'yellow', height: '5px', position:"fixed", zIndex: 10000 }} />
                 <ToastContainer />
-                <Header />
+                <Header {...this.props} />
                 {this.props.children}
                 <Footer />
             </div>

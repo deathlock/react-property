@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import LoginModal from './LoginModal';
@@ -15,7 +15,6 @@ class Header extends Component{
   }
   logout(){
     this.props.dispatch(syncActions.userLoggedIn(false));
-    //console.log(this.props);
     this.props.history.push("/");
   }
   render (){
@@ -78,4 +77,4 @@ class Header extends Component{
   }
 }
 const select = state => state;
-export default withRouter(connect(select)(Header));
+export default connect(select)(Header);
