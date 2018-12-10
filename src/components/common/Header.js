@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import LoginModal from './LoginModal';
 import * as syncActions from '../../redux/actions/Sync.action';
@@ -16,6 +17,7 @@ class Header extends Component{
   logout(){
     this.props.dispatch(syncActions.userLoggedIn(false));
     this.props.history.push("/");
+    toast.success('LoggedOut successfully.');
   }
   render (){
     const { userReducer } = this.props;

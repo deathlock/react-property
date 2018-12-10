@@ -10,13 +10,25 @@ class Middleware extends Component {
   render() {
     let RenderThis = this.props.component;
     if(this.props.userReducer.isLoggedin) {
-      return (
-        <RenderThis {...this.props} />
-      )
+        if(this.props.onlyLoggedout == true){
+          return (
+            <Redirect to="/" push />
+          )
+        }else{
+          return (
+            <RenderThis {...this.props} />
+          )
+        }
     } else {
-      return (
-        <Redirect to="/" push />
-      )
+      if(this.props.onlyLoggedout == true){
+          return (
+            <RenderThis {...this.props} />
+          )
+        }else{
+          return (
+            <Redirect to="/" push />
+          )
+        }
     }
     
   }

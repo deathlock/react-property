@@ -19,7 +19,7 @@ export default () => (
 			<Route exact path='/loader' component={Loader} />
 			<Route exact path='/property-list' component={PropertyList} />
 			<Route exact path='/agent-profile' component={AgentProfile} />
-			<Route exact path='/register' component={Register} />
+			<PrivateRoute exact path='/register' onlyLoggedout={true} component={Register} />
 			<PrivateRoute exact path='/user-profile' component={UserProfile} />
 			<Route component={NoMatch} />
 		</Switch>
