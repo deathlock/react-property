@@ -16,30 +16,47 @@ class LoginModal extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.register = this.register.bind(this);
+    this.validate = this.validate.bind(this);
   }
 
   handleSubmit(event){
     event.preventDefault();
     const data = new FormData(event.target);
-    const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
-    data.set('contact_number',contact_number);
-    
-    asyncApi.loginCustomer(data).then((r)=> {
-      r = r.data;
-      if(r.code && r.code == 200){
-        this.props.dispatch(syncActions.userLoggedIn(true));
-        this.props.dispatch(syncActions.userTokenData(r.data[0].token));
-        toast.success('LoggedIn successfully.');
-         this.props.history.push('user-profile');
-         this.closeModal();
-      }else{
-        toast.error('Credentials does not match');
-      }
-    }).catch((e) => {
-      toast.error('something went wrong.');
-    });
+    if(this.validate(data)){
+      const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
+      data.set('contact_number',contact_number);
+      
+      asyncApi.loginCustomer(data).then((r)=> {
+        r = r.data;
+        if(r.code && r.code == 200){
+          this.props.dispatch(syncActions.userLoggedIn(true));
+          this.props.dispatch(syncActions.userTokenData(r.data[0].token));
+          toast.success('LoggedIn successfully.');
+           this.props.history.push('user-profile');
+           this.closeModal();
+        }else{
+          toast.error('Credentials does not match');
+        }
+      }).catch((e) => {
+        toast.error('something went wrong.');
+      });
+    }
+  }
 
-    
+  validate(data){
+    const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
+    const password = data.get("password");
+    if(contact_number == "" || contact_number == "+" || contact_number.length < 5)
+    {
+      toast.error('Please enter contact number.');
+      return false;
+    }
+
+    if(password == ""){
+      toast.error('Please enter password.');
+      return false;  
+    }
+    return true;
   }
 
   closeModal(){

@@ -3,14 +3,20 @@ import React, { Component } from 'react';
 class PropertyCard extends Component{
 	constructor(props){
 		super(props);
+    this.gotoDetail = this.gotoDetail.bind(this);
 	}
+
+  gotoDetail(){
+    const property = this.props.data;
+    this.props.history.push('property/'+property.id);
+  }
 	
 	render() {
 		const property = this.props.data;
 		return(
 			<div className="list-min-div">
         <div className="estate-works-item">
-          <div className="item-overlay">
+          <div className="item-overlay" onClick={this.gotoDetail}>
             <div className="book-category clip-path-right"><a href="javascript:;">Book Tour</a></div>
             <div className={`category ${property.type == 'Buy' ? '' : 'rent-categ'}`}><a href="javascript:;">{property.type}</a></div>
             <img className="category-img" src="images/portfolio_01.jpg" alt="" />

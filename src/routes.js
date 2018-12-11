@@ -10,6 +10,7 @@ import UserProfile from './components/pages/UserProfile';
 import AgentProfile from './components/pages/AgentProfile';
 import Register from './components/pages/Register';
 import NoMatch from './components/common/NoMatch';
+import PropertyDetail from './components/pages/PropertyDetail';
 
 
 export default () => (
@@ -21,6 +22,7 @@ export default () => (
 			<Route exact path='/agent-profile' component={AgentProfile} />
 			<PrivateRoute exact path='/register' onlyLoggedout={true} component={Register} />
 			<PrivateRoute exact path='/user-profile' component={UserProfile} />
+			<Route exact path='/property/:property' component={PropertyDetail} />
 			<Route component={NoMatch} />
 		</Switch>
 	</Layout>
