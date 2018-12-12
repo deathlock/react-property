@@ -46,13 +46,12 @@ class LoginModal extends Component {
      document.getElementsByClassName("close")[0].click();
      document.querySelector('body').classList.remove('modal-open');
      document.getElementsByClassName("modal-backdrop")[0].remove();
+     document.body.style.padding = "0px";
   }
 
   register(e){
     e.preventDefault();
-    document.getElementsByClassName("close")[0].click();
-    document.querySelector('body').classList.remove('modal-open');
-    document.getElementsByClassName("modal-backdrop")[0].remove();
+    this.closeModal();
     this.props.history.push('register');
   }
 

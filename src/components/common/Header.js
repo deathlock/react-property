@@ -25,55 +25,52 @@ class Header extends Component{
     const userProfile = userReducer.userProfileDetails[0];
     if(isUserLoggedIn){
       return (
-        <header className="header-sec">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-3 login-wrap">
-                <Link to="/user-profile" className="log-btn">
-                  <img src="images/profile.png" alt="" />
-                  Hello, {userProfile.first_name} {userProfile.last_name}
-                  { isUserLoggedIn &&
-                    <i className="icon-logout fa fa-sign-out" onClick={this.logout} />
-                  }
-                </Link>
-              </div>
-              <div className="col-md-6 text-center">
-                <Link to="/"><img src="images/logo.png" alt="" /></Link>
-              </div>
-              <div className="col-md-3">
-                <div className="key-wrap">
-                  130,090
-                            <img src="images/key.png" alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
+         <header class="header-sec">
+         <div class="container-fluid">
+             <div class="row xs-mb-5">
+                 <div class="mr-auto pl-3 login-wrap">
+                   <button type="button" class="log-btn" data-toggle="modal" data-target="#smallShoes">
+                         <img src="images/profile.png" alt="" />
+                         Hello, {userProfile.first_name} {userProfile.last_name}
+                        { isUserLoggedIn &&
+                          <i className="icon-logout fa fa-sign-out" onClick={this.logout} />
+                        }
+                     </button>
+                     <LoginModal />
+                 </div>    
+                 <div class="mx-auto logo-area">
+                 <Link to="/"><img src="images/logo.svg" alt="" /></Link>
+                 </div>
+                 <div class="ml-auto pr-3 key-wrap">
+                   130,090  
+                   <img src="images/key.svg" alt="" />
+                 </div>
+             </div>
+         </div>
+         </header>
       );
     }else{
       return (
-        <header className="header-sec">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-3 login-wrap">
-                <button type="button" className="log-btn" data-toggle="modal" data-target="#smallShoes">
-                  <img src="images/profile.png" alt="" />
-                  Hello, Guest
-                </button>
-                <LoginModal />
+          <header class="header-sec">
+          <div class="container-fluid">
+              <div class="row xs-mb-5">
+                  <div class="mr-auto pl-3 login-wrap">
+                    <button type="button" class="log-btn" data-toggle="modal" data-target="#smallShoes">
+                          <img src="images/profile.png" alt="" />
+                          Hello, Guest
+                      </button>
+                      <LoginModal />
+                     </div> 
+                  <div class="mx-auto logo-area">
+                  <Link to="/"><img src="images/logo.svg" alt="" /></Link>
+                  </div>
+                  <div class="ml-auto pr-3 key-wrap">
+                    130,090  
+                    <img src="images/key.svg" alt="" />
+                  </div>
               </div>
-              <div className="col-md-6 text-center">
-                <Link to="/"><img src="images/logo.png" alt="" /></Link>
-              </div>
-              <div className="col-md-3">
-                <div className="key-wrap">
-                  130,090
-                            <img src="images/key.png" alt="" />
-                </div>
-              </div>
-            </div>
           </div>
-        </header>
+          </header>
       );
     }
   }
