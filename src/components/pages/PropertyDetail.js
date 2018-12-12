@@ -5,14 +5,31 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import * as asyncApi from '../../api/Async.api';
 import * as syncActions from '../../redux/actions/Sync.action';
 
+import Pictures from './propertydetail/Pictures';
+import Information from './propertydetail/Information';
+import Map from './propertydetail/Map';
+import GroundPlan from './propertydetail/GroundPlan';
+import Vendor from './propertydetail/Vendor';
+
 class PropertyDetail extends Component{
 	constructor(props){
 		super(props);
+		this.state = {
+			currenttab:'Pictures', 
+		}
+
 		this.back = this.back.bind(this);
+		this.changeTab = this.changeTab.bind(this);
 	}
 
 	back(){
 		this.props.history.goBack();
+	}
+
+	changeTab(tabName){
+		this.setState({
+			currenttab: tabName
+		});
 	}
 
 	componentDidMount(){
@@ -21,7 +38,6 @@ class PropertyDetail extends Component{
 
 	render(){
 		const property = this.props;
-		console.log('property>>', property);
 		return(
 			<div className="propertydetail-wrap">
 				<Helmet>
@@ -46,11 +62,11 @@ class PropertyDetail extends Component{
 		            </button>
 		            <div className="collapse navbar-collapse" id="collapsibleNavbar">
 		              <ul className="nav w-100 px-0 py-0">
-		                <li className="nav-item active"><a className="nav-link" href="javascript:;">Pictures</a></li>
-		                <li className="nav-item"><a className="nav-link" href="javascript:;">Information</a></li>
-		                <li className="nav-item"><a className="nav-link" href="javascript:;">Map</a></li>
-		                <li className="nav-item"><a className="nav-link" href="javascript:;">Ground PLan</a></li>
-		                <li className="nav-item"><a className="nav-link" href="javascript:;">Verdor</a></li>
+		                <li className={"nav-item " + (this.state.currenttab === 'Pictures' ? 'active' : '') }><a className="nav-link" href="javascript:;" onClick={() => this.changeTab('Pictures')} >Pictures</a></li>
+		                <li className={"nav-item " + (this.state.currenttab === 'Information' ? 'active' : '') }><a className="nav-link" href="javascript:;"  onClick={() => this.changeTab('Information')} >Information</a></li>
+		                <li className={"nav-item " + (this.state.currenttab === 'Map' ? 'active' : '') }><a className="nav-link" href="javascript:;" onClick={() => this.changeTab('Map')} >Map</a></li>
+		                <li className={"nav-item " + (this.state.currenttab === 'GroundPlan' ? 'active' : '') }><a className="nav-link" href="javascript:;" onClick={() => this.changeTab('GroundPlan')} >Ground PLan</a></li>
+		                <li className={"nav-item " + (this.state.currenttab === 'Vendor' ? 'active' : '') }><a className="nav-link" href="javascript:;" onClick={() => this.changeTab('Vendor')} >Verdor</a></li>
 		              </ul>
 		            </div>
 		          </nav>
@@ -64,7 +80,7 @@ class PropertyDetail extends Component{
 		    </section>
 
 		    <div className="property-detail-popup">
-		      <div className="modal fade" id="property-detail" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+		      <div className="modal fade" id="property-detail" tabIndex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
 		        <div className="modal-dialog ">
 		          <div className="modal-content">
 		            <ul className="property-tab">
@@ -83,7 +99,7 @@ class PropertyDetail extends Component{
 		    </div>
 
 		    <div className="property-detail-tour">
-		      <div className="modal fade" id="property-tour" tabindex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
+		      <div className="modal fade" id="property-tour" tabIndex="-1" role="dialog" aria-labelledby="modalLabelSmall" aria-hidden="true">
 		        <div className="modal-dialog">
 		          <div className="modal-content">
 		            <form className="tour-form pl-40 pr-40 pt-5 pb-5" action="#" method="post">
@@ -110,18 +126,21 @@ class PropertyDetail extends Component{
 		        </div>
 		      </div>
 		    </div>
-		    <section className="hero-banner-section">
-		      <div className="container-fluid">
-		          <div className="row hero-banner">
-		            <img className="pictures-view" src="images/property_detail.jpg" alt="" />
-		            <div className="over-high">
-		              <div className="container">
-		                <button type="button" className="btn search-btn btn-white text-black">Video Tour</button>
-		              </div>
-		            </div>
-		          </div>
-		      </div>
-		    </section>
+		    { this.state.currenttab == 'Pictures' && 
+		    	<Pictures />
+		    }
+		    { this.state.currenttab == 'Information' && 
+		    	<Information />
+		    }
+		    { this.state.currenttab == 'Map' && 
+		    	<Map />
+		    }
+		    { this.state.currenttab == 'GroundPlan' && 
+		    	<GroundPlan />
+		    }
+		    { this.state.currenttab == 'Vendor' && 
+		    	<Vendor />
+		    }
 			</div>
 		);
 	}

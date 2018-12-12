@@ -25,23 +25,23 @@ class Header extends Component{
     const userProfile = userReducer.userProfileDetails[0];
     if(isUserLoggedIn){
       return (
-         <header class="header-sec">
-         <div class="container-fluid">
-             <div class="row xs-mb-5">
-                 <div class="mr-auto pl-3 login-wrap">
-                   <button type="button" class="log-btn" data-toggle="modal" data-target="#smallShoes">
+         <header className="header-sec">
+         <div className="container-fluid">
+             <div className="row xs-mb-5">
+                 <div className="mr-auto pl-3 login-wrap">
+                   <button type="button" className="log-btn" data-toggle="modal" data-target="#smallShoes">
                          <img src="images/profile.png" alt="" />
                          Hello, {userProfile.first_name} {userProfile.last_name}
                         { isUserLoggedIn &&
-                          <i className="icon-logout fa fa-sign-out" onClick={this.logout} />
+                          <i classNameName="icon-logout fa fa-sign-out" onClick={this.logout} />
                         }
                      </button>
                      <LoginModal />
                  </div>    
-                 <div class="mx-auto logo-area">
+                 <div className="mx-auto logo-area">
                  <Link to="/"><img src="images/logo.svg" alt="" /></Link>
                  </div>
-                 <div class="ml-auto pr-3 key-wrap">
+                 <div className="ml-auto pr-3 key-wrap">
                    130,090  
                    <img src="images/key.svg" alt="" />
                  </div>
@@ -51,20 +51,20 @@ class Header extends Component{
       );
     }else{
       return (
-          <header class="header-sec">
-          <div class="container-fluid">
-              <div class="row xs-mb-5">
-                  <div class="mr-auto pl-3 login-wrap">
-                    <button type="button" class="log-btn" data-toggle="modal" data-target="#smallShoes">
+          <header className="header-sec">
+          <div className="container-fluid">
+              <div className="row xs-mb-5">
+                  <div className="mr-auto pl-3 login-wrap">
+                    <button type="button" className="log-btn" data-toggle="modal" data-target="#smallShoes">
                           <img src="images/profile.png" alt="" />
                           Hello, Guest
                       </button>
                       <LoginModal />
                      </div> 
-                  <div class="mx-auto logo-area">
+                  <div className="mx-auto logo-area">
                   <Link to="/"><img src="images/logo.svg" alt="" /></Link>
                   </div>
-                  <div class="ml-auto pr-3 key-wrap">
+                  <div className="ml-auto pr-3 key-wrap">
                     130,090  
                     <img src="images/key.svg" alt="" />
                   </div>
