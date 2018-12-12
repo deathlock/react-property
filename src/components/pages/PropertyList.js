@@ -74,7 +74,7 @@ class PropertyList extends React.PureComponent {
     var items = [];
     var displayProperty = "";
     PropertyListData.map((property, key) => {
-      const card =  <PropertyCard key={key} data={property} />;
+      const card =  <PropertyCard key={key} data={property} {...this.props} />;
       items.push(card);
     });
     
