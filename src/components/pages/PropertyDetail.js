@@ -10,12 +10,14 @@ import Information from './propertydetail/Information';
 import Map from './propertydetail/Map';
 import GroundPlan from './propertydetail/GroundPlan';
 import Vendor from './propertydetail/Vendor';
+import { toast } from 'react-toastify';
 
 class PropertyDetail extends Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			currenttab:'Pictures', 
+			currenttab:'Pictures',
+      propertyData:[]
 		}
 
 		this.back = this.back.bind(this);
@@ -32,8 +34,22 @@ class PropertyDetail extends Component{
 		});
 	}
 
-	componentDidMount(){
+	async componentDidMount(){
 		const propertyId = this.props.match.params.property;
+    const data = new FormData();
+    data.set('property_id',propertyId);
+
+    const propertyDetail = await asyncApi.getPropertyDetail(data)
+        .then((r)=> { return r.data; })
+        .catch((e) => { toast.error('something went wrong.'); });
+
+    if(propertyDetail.code == 200){
+      this.setState({
+        propertyData: propertyDetail.data[0]
+      });
+    }else{
+      toast.error('something went wrong.');
+    }
 	}
 
 	render(){
@@ -130,13 +146,13 @@ class PropertyDetail extends Component{
 		    	<Pictures />
 		    }
 		    { this.state.currenttab == 'Information' && 
-		    	<Information />
+		    	<Information propertyData={this.state.propertyData} />
 		    }
 		    { this.state.currenttab == 'Map' && 
 		    	<Map />
 		    }
 		    { this.state.currenttab == 'GroundPlan' && 
-		    	<GroundPlan />
+		    	<GroundPlan propertyData={this.state.propertyData} />
 		    }
 		    { this.state.currenttab == 'Vendor' && 
 		    	<Vendor />
