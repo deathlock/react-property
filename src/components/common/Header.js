@@ -29,13 +29,13 @@ class Header extends Component{
          <div className="container-fluid">
              <div className="row xs-mb-5">
                  <div className="mr-auto pl-3 login-wrap">
-                   <button type="button" className="log-btn" data-toggle="modal" data-target="#smallShoes">
+                    <Link to="/user-profile" className="log-btn">
                          <img src="images/profile.png" alt="" />
                          Hello, {userProfile.first_name} {userProfile.last_name}
                         { isUserLoggedIn &&
-                          <i classNameName="icon-logout fa fa-sign-out" onClick={this.logout} />
+                          <i className="icon-logout fa fa-sign-out" onClick={this.logout} />
                         }
-                     </button>
+                     </Link>
                      <LoginModal />
                  </div>    
                  <div className="mx-auto logo-area">

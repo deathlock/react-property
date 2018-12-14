@@ -143,7 +143,7 @@ class PropertyDetail extends Component{
 		      </div>
 		    </div>
 		    { this.state.currenttab == 'Pictures' && 
-		    	<Pictures />
+		    	<Pictures propertyData={this.state.propertyData} />
 		    }
 		    { this.state.currenttab == 'Information' && 
 		    	<Information propertyData={this.state.propertyData} />

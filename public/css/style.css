@@ -1261,3 +1261,7 @@ ul.home-autofill li { padding: 6px; border: 0.5px solid #ccc; text-align: left; 
 
 .icon-logout { margin-left: 10px; }
 .estate-works-item .item-overlay{ cursor: pointer;}
+
+.hero-banner-section .carousel {
+	margin:0 auto;
+}

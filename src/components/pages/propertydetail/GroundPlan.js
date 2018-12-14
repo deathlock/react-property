@@ -9,10 +9,10 @@ class GroundPlan extends Component{
 		let classactive="";
 		if(key == 0){classactive="carousel-item active";}else{classactive="carousel-item";};
 		return(
-			<div className={classactive}>
-        <img src="images/ground_plan01.png" alt="" />
+			<div className={classactive} key={key}>
+        <img src={image.url} alt="" />
         <div className="carousel-caption">
-          <h4>Level {key}</h4>
+          
         </div>   
       </div>
 		);
