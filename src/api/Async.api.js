@@ -66,6 +66,16 @@ export const getProfile = (bodyFormData) => {
                 .then((r) => r);
 }
 
+export const getPropertyDetail = (bodyFormData) => {
+        return axios({
+                method: 'post',
+                url: baseUrl + '/property',
+                data: bodyFormData,
+                headers: {'Accept': 'application/json'}
+                })
+                .then((r) => r);
+}
+
 /*********** With Reducers ***********/
 
 
