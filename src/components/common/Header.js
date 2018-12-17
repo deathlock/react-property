@@ -33,7 +33,7 @@ class Header extends Component{
                          <img src="images/profile.png" alt="" />
                          Hello, {userProfile.first_name} {userProfile.last_name}
                         { isUserLoggedIn &&
-                          <i classNameName="icon-logout fa fa-sign-out" onClick={this.logout} />
+                          <i className="icon-logout fa fa-sign-out" onClick={this.logout} />
                         }
                      </button>
                      <LoginModal />
