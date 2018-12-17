@@ -1265,3 +1265,5 @@ ul.home-autofill li { padding: 6px; border: 0.5px solid #ccc; text-align: left; 
 .hero-banner-section .carousel {
 	margin:0 auto;
 }
+
+.is-invalid{ border: 1px solid !important; border-color: #dc3545 !important; }

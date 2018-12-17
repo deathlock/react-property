@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ReactPhoneInput from 'react-phone-input-2';
 import { toast } from 'react-toastify';
+import { Form, Field } from 'react-final-form';
 import _ from 'lodash';
 
 import * as asyncApi from '../../api/Async.api';
 import * as syncActions from '../../redux/actions/Sync.action';
+import * as validator from '../../library/validator';
+import * as formInputs from '../../library/formInputs';
 
 class LoginModal extends Component {
   constructor(props) {
@@ -16,47 +18,24 @@ class LoginModal extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.register = this.register.bind(this);
-    this.validate = this.validate.bind(this);
   }
 
   handleSubmit(event){
-    event.preventDefault();
-    const data = new FormData(event.target);
-    if(this.validate(data)){
-      const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
-      data.set('contact_number',contact_number);
-      
-      asyncApi.loginCustomer(data).then((r)=> {
-        r = r.data;
-        if(r.code && r.code == 200){
-          this.props.dispatch(syncActions.userLoggedIn(true));
-          this.props.dispatch(syncActions.userTokenData(r.data[0].token));
-          toast.success('LoggedIn successfully.');
-           this.props.history.push('user-profile');
-           this.closeModal();
-        }else{
-          toast.error('Credentials does not match');
-        }
-      }).catch((e) => {
-        toast.error('something went wrong.');
-      });
-    }
-  }
-
-  validate(data){
-    const contact_number = data.get("contact_number").replace(/[- )(]/g,'');
-    const password = data.get("password");
-    if(contact_number == "" || contact_number == "+" || contact_number.length < 5)
-    {
-      toast.error('Please enter contact number.');
-      return false;
-    }
-
-    if(password == ""){
-      toast.error('Please enter password.');
-      return false;  
-    }
-    return true;
+    event.contact_number = event.contact_number.replace(/[- )(]/g,'');
+    asyncApi.loginCustomer(event).then((r)=> {
+      r = r.data;
+      if(r.code && r.code == 200){
+        this.props.dispatch(syncActions.userLoggedIn(true));
+        this.props.dispatch(syncActions.userTokenData(r.data[0].token));
+        toast.success('LoggedIn successfully.');
+         this.props.history.push('user-profile');
+         this.closeModal();
+      }else{
+        toast.error('Credentials does not match');
+      }
+    }).catch((e) => {
+      toast.error('something went wrong.');
+    });
   }
 
   closeModal(){
@@ -79,18 +58,38 @@ class LoginModal extends Component {
               <div className="modal-content">
                   <div className="left-wrap">
                       <div className="left-inner">
-                        <form onSubmit={this.handleSubmit}>
-                          <div className="form-group login-phone">
-                            <ReactPhoneInput defaultCountry={'us'} placeholder="Login with your Smartphone" inputExtraProps={{name: 'contact_number'}} inputClass="form-control"/>
-                          </div>
-                          <div className="form-group password">
-                            <input type="password" id="password" name="password" placeholder="Password" className="form-control" />
-                          </div>
-                          <div className="d-flex">
-                            <button type="submit" className="btn-orange-lg w-50 mr-2">Login</button>
-                            <button className="btn-orange-lg w-50" onClick={this.register}>Register</button>
-                          </div>
-                        </form>
+                        <Form
+                          onSubmit={this.handleSubmit}
+                          initialValues={{ contact_number: '+1' }}
+                          render={({ handleSubmit, form, submitting, pristine, values, reset, validating }) => (
+                            <form onSubmit={handleSubmit}>
+                              <div className="form-group login-phone">
+                              <Field
+                                  id="contact_number"
+                                  name="contact_number"
+                                  component={formInputs.renderPhone}
+                                  className="form-control"
+                                  validate={validator.composeValidators(validator.required, validator.logincontact)}
+                                />
+                              </div>
+                              <div className="form-group password">
+                                <Field
+                                  id="password"
+                                  name="password"
+                                  component={formInputs.renderinput}
+                                  type="password"
+                                  placeholder="Password"
+                                  className="form-control"
+                                  validate={validator.composeValidators(validator.required)}
+                                />
+                              </div>
+                              <div className="d-flex">
+                                <button  className="btn-orange-lg w-50 mr-2">Login</button>
+                                <button className="btn-orange-lg w-50" onClick={this.register}>Register</button>
+                              </div>
+                            </form>
+                          )}
+                        />
                         <p className="popup-text">You are here as a Guest. Apply your<br />
                           search criteria here and save<br />
                           upto 5 keys. (IP)</p>
