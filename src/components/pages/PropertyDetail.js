@@ -35,9 +35,9 @@ class PropertyDetail extends Component{
 	}
 
 	async componentDidMount(){
-		const propertyId = this.props.match.params.property;
+		const propertySlug = this.props.match.params.property;
     const data = new FormData();
-    data.set('property_id',propertyId);
+    data.set('slug',propertySlug);
 
     const propertyDetail = await asyncApi.getPropertyDetail(data)
         .then((r)=> { return r.data; })
@@ -155,7 +155,7 @@ class PropertyDetail extends Component{
 		    	<GroundPlan propertyData={this.state.propertyData} />
 		    }
 		    { this.state.currenttab == 'Vendor' && 
-		    	<Vendor />
+		    	<Vendor propertyData={this.state.propertyData} />
 		    }
 			</div>
 		);
