@@ -10,6 +10,12 @@ class Vendor extends Component{
 		const profile_image = (vendor.profile == "") ? "images/profile_list.jpg" : vendor.profile;
 		const cover_image = (vendor.cover_profile == "") ? "images/about.jpg" : vendor.cover_profile;
 
+		var services = [];
+    vendor.services.map((serviceName, key) => {
+      const service =  <li key={key}>{serviceName.name}</li>;
+      services.push(service);
+    });
+
 		return(
 			<section className="keyblog-section pb-5 white-bg-img py-6">
 	      <div className="container-fluid">
@@ -59,17 +65,8 @@ class Vendor extends Component{
 	                  </div>
 	                  <div className="tab-pane fade" id="MyServices" role="tabpanel" aria-labelledby="MyServices-tab">
 	                    <div className="mt-4 pl-4">
-	                      <h6 className="text-black mb-30">My Services 
-	                      	<a href="JavaScript:;" className="add-services"><i className="fa fa-plus"></i></a>
-	                      </h6>  
 	                      <ul className="services-list">
-	                      	<li>Move Service</li>
-	                        <li>Local Support</li>
-	                        <li>Design & Furniture</li>
-	                        <li>House Service Stuff</li>
-	                        <li>Architecture</li>
-	                        <li>Financing Support</li>
-	                        <li>Family Services Around</li>
+	                      	{services}
 	                      </ul>
 	                    </div>
 	                  </div>
