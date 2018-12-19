@@ -20,7 +20,7 @@ class LoginModal extends Component {
     this.register = this.register.bind(this);
   }
 
-  handleSubmit(event){
+  handleSubmit(event, form){
     event.contact_number = event.contact_number.replace(/[- )(]/g,'');
     asyncApi.loginCustomer(event).then((r)=> {
       r = r.data;
@@ -30,6 +30,7 @@ class LoginModal extends Component {
         toast.success('LoggedIn successfully.');
          this.props.history.push('user-profile');
          this.closeModal();
+         form.reset();
       }else{
         toast.error('Credentials does not match');
       }
