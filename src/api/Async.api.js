@@ -28,7 +28,7 @@ export const sendOTP = (phone) => {
     
         return axios({
                 method: 'post',
-                url: baseUrl + '/saveotp',
+                url: baseUrl + '/sendotp',
                 data: data,
                 config: { headers: {'Content-Type': 'application/json' }}
                 })

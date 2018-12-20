@@ -49,7 +49,7 @@ class LoginModal extends Component {
   register(e){
     e.preventDefault();
     this.closeModal();
-    this.props.history.push('register');
+    this.props.history.push('/register');
   }
 
   render() {
