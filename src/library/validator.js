@@ -4,4 +4,6 @@ export const required = value => (value ? undefined : 'Required');
 export  const minValue = min => value =>
   isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
 export const logincontact = value =>
-	value == "" || value == "+" || value.length < 5 ? `Please enter contact nuber` : undefined;
+  value == "" || value == "+" || value.length < 5 ? `Please enter contact nuber` : undefined;
+export const confirmPassword = cval => value =>
+  value != cval ? 'Confirm password does not match' : undefined;
