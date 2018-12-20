@@ -28,7 +28,7 @@ class LoginModal extends Component {
         this.props.dispatch(syncActions.userLoggedIn(true));
         this.props.dispatch(syncActions.userTokenData(r.data[0].token));
         toast.success('LoggedIn successfully.');
-         this.props.history.push('user-profile');
+         this.props.history.push('/user-profile');
          this.closeModal();
          form.reset();
       }else{
