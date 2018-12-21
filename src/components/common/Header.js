@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 import LoginModal from './LoginModal';
 import * as syncActions from '../../redux/actions/Sync.action';
+import * as asyncApi from "../../api/Async.api";
 
 class Header extends Component{
   constructor(props) {
@@ -15,10 +16,21 @@ class Header extends Component{
     this.logout = this.logout.bind(this);
   }
   logout(){
-    this.props.dispatch(syncActions.userLoggedIn(false));
-    this.props.history.push("/");
-    toast.success('LoggedOut successfully.');
+    asyncApi.logoutCustomer({token:this.props.userReducer.userToken})
+    .then((r)=> { 
+      r = r.data;
+      if(r.code && r.code == 200){
+        this.props.dispatch(syncActions.userLoggedIn(false));
+        this.props.dispatch(syncActions.userTokenData(""));
+        this.props.history.push("/");
+        toast.success('LoggedOut successfully.');
+      }else{
+        toast.error('something went wrong.');
+      }
+    })
+    .catch((e) => { toast.error('something went wrong.'); });
   }
+  
   render (){
     const { userReducer } = this.props;
     const isUserLoggedIn = userReducer.isLoggedin;

@@ -10,9 +10,24 @@ class PropertyCard extends Component{
     const property = this.props.data;
     this.props.history.push('property/'+property.slug);
   }
+
+  ratings(rate){
+    rate = Math.round(rate);
+    const ratings = [];
+    for (let i = 0; i < rate; i++) {
+      const rating =  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>;
+      ratings.push(rating);
+    };
+    for (let i = 0; i < 5-rate; i++) {
+      const rating =  <li><a className="disable" href="javascript:;"><i className="fa fa-star"></i></a></li>;
+      ratings.push(rating);
+    };
+    return ratings;
+  }
 	
 	render() {
 		const property = this.props.data;
+    const ratings = this.ratings(property.ratings);
 		return(
 			<div className="list-min-div">
         <div className="estate-works-item">
@@ -24,11 +39,7 @@ class PropertyCard extends Component{
               <h6 className="overlay-title">${property.price}</h6>
               <ul className="overlay-icons">
                 <li className="mr-2">Standard</li>
-                <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-                <li><a className="disable" href="javascript:;"><i className="fa fa-star"></i></a></li>
+                {ratings}
               </ul>
             </div>
           </div>
