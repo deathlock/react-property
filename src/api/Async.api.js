@@ -86,6 +86,16 @@ export const getPropertyDetail = (bodyFormData) => {
                 .then((r) => r);
 }
 
+export const getPropertyCount = (bodyFormData) => {
+        return axios({
+                method: 'get',
+                url: baseUrl + '/property_count',
+                data: bodyFormData,
+                headers: {'Accept': 'application/json'}
+                })
+                .then((r) => r);
+}
+
 /*********** With Reducers ***********/
 
 

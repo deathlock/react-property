@@ -11,10 +11,27 @@ class Header extends Component{
   constructor(props) {
     super(props);
     this.state = {
+      totalProperties : ''
     }
 
     this.logout = this.logout.bind(this);
   }
+
+  componentDidMount(){
+    asyncApi.getPropertyCount()
+    .then((r) =>{
+      r = r.data;
+      if(r.code && r.code == 200){
+        this.setState({
+          totalProperties: r.data
+        })
+      }else{
+        toast.error('something went wrong.');
+      }
+    })
+    .catch((e) => { toast.error('something went wrong.'); });
+  }
+
   logout(){
     asyncApi.logoutCustomer({token:this.props.userReducer.userToken})
     .then((r)=> { 
@@ -54,7 +71,7 @@ class Header extends Component{
                  <Link to="/"><img src="images/logo.svg" alt="" /></Link>
                  </div>
                  <div className="ml-auto pr-3 key-wrap">
-                   130,090  
+                   {this.state.totalProperties} 
                    <img src="images/key.svg" alt="" />
                  </div>
              </div>
@@ -77,7 +94,7 @@ class Header extends Component{
                   <Link to="/"><img src="images/logo.svg" alt="" /></Link>
                   </div>
                   <div className="ml-auto pr-3 key-wrap">
-                    130,090  
+                    {this.state.totalProperties} 
                     <img src="images/key.svg" alt="" />
                   </div>
               </div>
