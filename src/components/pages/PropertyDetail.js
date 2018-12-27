@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
@@ -54,6 +55,8 @@ class PropertyDetail extends Component{
 
 	render(){
 		const property = this.props;
+		const { userReducer } = this.props;
+    const isUserLoggedIn = userReducer.isLoggedin;
 		return(
 			<div className="propertydetail-wrap">
 				<Helmet>
@@ -120,10 +123,13 @@ class PropertyDetail extends Component{
 		          <div className="modal-content">
 		            <form className="tour-form pl-40 pr-40 pt-5 pb-5" action="#" method="post">
 		              <h3 className="mb-30">Book Tour</h3>
-		              <div className="d-flex mb-30">
-		                <a href="#" className="search-btn w-50 mr-2">Login</a>
-		                <a href="#" className="search-btn btn-blue w-50">Register</a>
-		              </div>
+		              { !isUserLoggedIn &&
+										<div className="d-flex mb-30">
+			                <a href="#" className="search-btn w-50 mr-2">Login</a>
+			                <a href="#" className="search-btn btn-blue w-50">Register</a>
+			              </div>
+		              }
+		              
 		              <div className="form-group">
 		                <label className="form-label mb-1">Select Date & Time</label>
 		                <input type="text" name="name" value="Select Date & Time" className="form-control font-16 pl-4 pr-4" />
@@ -162,4 +168,5 @@ class PropertyDetail extends Component{
 	}
 }
 
-export default PropertyDetail;
+const select = state => state;
+export default connect(select)(PropertyDetail);
