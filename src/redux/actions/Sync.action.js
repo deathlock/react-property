@@ -9,3 +9,5 @@ export const propertyListData = payload => ({ type: 'PROPERTY_LIST', payload });
 export const userLoggedIn = payload => ({type: 'SET_LOGGEDIN_STATE', payload});
 export const userTokenData = payload => ({ type: 'USER_TOKEN', payload });
 export const userProfileData = payload => ({ type: 'USER_PROFILE_DATA', payload });
+export const agentID = payload => ({ type: 'AGENT_ID', payload });
+

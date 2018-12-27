@@ -1,11 +1,95 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroller';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
+
+import PropertyCard from './PropertyCard';
+import NoMoreData from '../common/NoMoreData';
+import * as asyncApi from "../../api/Async.api";
+import * as syncActions from '../../redux/actions/Sync.action';
+import {  toast } from 'react-toastify';
 
 class AgentProfile extends Component{
 	constructor(props){
     super(props);
+    this.state = {
+    	agentData:[],
+    	agent_id:0,
+    	PropertyListData:[],
+      PropertyCount:"",
+      CurrentOffset:0,
+      Limit:3,
+      hasMoreItems: true,
+      isRunnning: false
+    }
+
+    this.loadProperties = this.loadProperties.bind(this);
+  }
+
+  componentDidMount(){
+  	const agent_id = this.props.userReducer.agentId;
+  	this.setState({
+  		agent_id:agent_id
+  	});
+    asyncApi.getAgentProfile({'agent_id':agent_id})
+    .then((r)=> { 
+      r = r.data;
+      if(r.code && r.code == 200){
+        this.setState({
+        	agentData:r.data
+        });
+        this.loadProperties();
+      }else{
+        toast.error('something went wrong.');
+      }
+    })
+    .catch((e) => { toast.error('something went wrong.'); });
+    
+  }
+
+  async loadProperties(){
+  	const agent_id = this.state.agent_id;
+    if(this.state.hasMoreItems && !this.state.isRunnning){
+        this.props.dispatch(showLoading());
+        this.setState({ isRunnning: true });
+        const propertyList = await asyncApi.getPropertyList({start:this.state.CurrentOffset, limit: this.state.Limit, agent_id:agent_id})
+        .then((r)=> { return r; })
+        .catch((e) => { toast.error('something went wrong.'); });
+        
+        var offset = this.state.CurrentOffset + this.state.Limit;
+        var hasMoreItemscheck= true;
+        if(offset > propertyList.count){
+          hasMoreItemscheck = false;
+        }
+
+        var records = [...this.state.PropertyListData, ...propertyList.data];
+
+        this.setState ({
+          PropertyListData: records,
+          PropertyCount:propertyList.count,
+          hasMoreItems: hasMoreItemscheck,
+          CurrentOffset: offset,
+          isRunnning: false
+        });
+
+        this.props.dispatch(hideLoading()); 
+           
+      }
   }
 
 	render() {
+		const agentDetail = this.state.agentData;
+		const PropertyListData = this.state.PropertyListData;
+    var items = [];
+    var displayProperty = "";
+    PropertyListData.map((property, key) => {
+      const card =  <PropertyCard key={key} data={property} {...this.props} />;
+      items.push(card);
+    });
+    
+    if(!this.state.hasMoreItems){
+      displayProperty = <NoMoreData message="No More Properties..." />
+    }
 		return (
 			<div className="agentprofile-wrap">
 				<section className="hero-banner-section">
@@ -26,8 +110,8 @@ class AgentProfile extends Component{
 		              <div className="user-profile-details">
 		                <div className="row align-items-center mb-3">
 		                  <div className="col-lg-6 col-md-12 col-sm-12">
-		                    <h3>Kelly Blogs</h3>
-		                    <h4>Real-Esatate Agent</h4>
+		                    <h3>{agentDetail.first_name} {agentDetail.last_name}</h3>
+		                    <h4>{agentDetail.company_name}</h4>
 		                  </div>
 		                  <div className="col-lg-6 col-md-12 col-sm-12 text-right md-text-left xs-text-center md-mt-3">
 		                    <button type="button" className="btn search-btn px-4 py-2 xs-d-block xs-mx-auto xs-my-3">Chat/Request</button>
@@ -45,7 +129,7 @@ class AgentProfile extends Component{
 		              <li><a href="JavaScript:;"><img src="images/flag03.png" alt="" /></a></li>
 		              <li><a href="JavaScript:;"><img src="images/flag04.png" alt="" /></a></li>
 		            </ul>
-		            <p className="sub-description mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		            <p className="sub-description mt-3">{agentDetail.profile_status}</p>
 		          </div>
 		        </div>
 		      </div>
@@ -68,117 +152,20 @@ class AgentProfile extends Component{
 		            <div className="tab-content w-100" id="myTabContent">
 		              <div className="tab-pane fade show active" id="List" role="tabpanel" aria-labelledby="List-tab">
 		                <div className="row contain-plr mt-4">
-		                  <div className="list-min-div">
-		                    <div className="estate-works-item">
-		                      <div className="item-overlay">
-		                        <div className="book-category clip-path-right"><a href="javascript:;">Book Tour</a></div>
-		                        <div className="category"><a href="javascript:;">Buy</a></div>
-		                        <img className="category-img" src="images/portfolio_01.jpg" alt="" />
-		                        <div className="overlay-content">
-		                          <h6 className="overlay-title">$8,800,000</h6>
-		                            <ul className="overlay-icons">
-		                              <li className="mr-2">Standard</li>
-		                              <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                              <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                              <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                              <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                              <li><a className="disable" href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                            </ul>
-		                        </div>
-		                      </div>
-		                      <div className="estate-works-description">
-		                        <div className="estate-details">
-		                          <h4 className="d-flex">
-		                          <span>Mega Villa</span>
-		                          <a href="#" className="btn small-btn">Video Visit</a>
-		                          </h4>
-		                          <strong>ABC Street 1,12586 Denver</strong>
-		                          <p>Will equipped studio apartment From</p>
-		                          <p>2.00 QM | 25 Bedrooms</p>
-		                        </div>
-		                        <ul className="estate-bottom-nav">
-		                          <li><a href="javascript:;"><i className="fa fa-heart"></i> Save</a></li>
-		                          <li><a href="javascript:;"><i className="fa fa-phone"></i> Contact</a></li>
-		                          <li><a href="javascript:;"><i className="fa fa-handshake-o"></i> Apply</a></li>
-		                          <li><a href="javascript:;"><i className="fa fa-share-alt"></i> Share</a></li>
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="list-min-div">
-		                    <div className="estate-works-item">
-		                      <div className="item-overlay">
-		                        <div className="book-category clip-path-right"><a href="javascript:;">Book Tour</a></div>
-		                        <div className="category"><a href="javascript:;">Buy</a></div>
-		                        <img className="category-img" src="images/portfolio_01.jpg" alt="" />
-		                          <div className="overlay-content">
-		                            <h6 className="overlay-title">$8,800,000</h6>
-		                              <ul className="overlay-icons">
-		                                  <li className="mr-2">Standard</li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a className="disable" href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                              </ul>
-		                          </div>
-		                      </div>
-		                      <div className="estate-works-description">
-		                          <div className="estate-details">
-		                            <h4 className="d-flex">
-		                                <span>Mega Villa</span>
-		                                <a href="#" className="btn small-btn">Video Visit</a>
-		                              </h4>
-		                              <strong>ABC Street 1,12586 Denver</strong>
-		                              <p>Will equipped studio apartment From</p>
-		                              <p>2.00 QM | 25 Bedrooms</p>
-		                          </div>
-		                          <ul className="estate-bottom-nav">
-		                              <li><a href="javascript:;"><i className="fa fa-heart"></i> Save</a></li>
-		                              <li><a href="javascript:;"><i className="fa fa-phone"></i> Contact</a></li>
-		                              <li><a href="javascript:;"><i className="fa fa-handshake-o"></i> Apply</a></li>
-		                              <li><a href="javascript:;"><i className="fa fa-share-alt"></i> Share</a></li>
-		                          </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="list-min-div">
-		                    <div className="estate-works-item">
-		                      <div className="item-overlay">
-		                        <div className="book-category clip-path-right"><a href="javascript:;">Book Tour</a></div>
-		                        <div className="category rent-categ"><a href="javascript:;">Rent</a></div>
-		                        <img className="category-img" src="images/portfolio_01.jpg" alt="" />
-		                          <div className="overlay-content">
-		                            <h6 className="overlay-title">$8,800,000</h6>
-		                              <ul className="overlay-icons">
-		                                  <li className="mr-2">Standard</li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                                  <li><a className="disable" href="javascript:;"><i className="fa fa-star"></i></a></li>
-		                              </ul>
-		                          </div>
-		                        </div>
-		                        <div className="estate-works-description">
-		                            <div className="estate-details">
-		                              <h4 className="d-flex">
-		                                  <span>Mega Villa</span>
-		                                  <a href="#" className="btn small-btn">Video Visit</a>
-		                                </h4>
-		                                <strong>ABC Street 1,12586 Denver</strong>
-		                                <p>Will equipped studio apartment From</p>
-		                                <p>2.00 QM | 25 Bedrooms</p>
-		                            </div>
-		                            <ul className="estate-bottom-nav">
-		                                <li><a href="javascript:;"><i className="fa fa-heart"></i> Save</a></li>
-		                                <li><a href="javascript:;"><i className="fa fa-phone"></i> Contact</a></li>
-		                                <li><a href="javascript:;"><i className="fa fa-handshake-o"></i> Apply</a></li>
-		                                <li><a href="javascript:;"><i className="fa fa-share-alt"></i> Share</a></li>
-		                            </ul>
-		                        </div>
-		                    </div>
-		                  </div>
+		                  <InfiniteScroll
+                    pageStart={this.state.CurrentOffset}
+                    loadMore={this.loadProperties.bind(this)}
+                    hasMore={this.state.hasMoreItems}
+                    //loader={loader}
+                    threshold={600}
+                    initialLoad={false}
+                    >
+
+                    <div className="row contain-plr">
+                        {items}
+                    </div>
+                  </InfiniteScroll>
+             			{displayProperty}
 		                </div>
 		              </div>
 
@@ -199,4 +186,5 @@ class AgentProfile extends Component{
 	}
 }
 
-export default AgentProfile;
+const select = state => state;
+export default connect(select)(AgentProfile);

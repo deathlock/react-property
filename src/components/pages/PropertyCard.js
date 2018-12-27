@@ -8,7 +8,7 @@ class PropertyCard extends Component{
 
   gotoDetail(){
     const property = this.props.data;
-    this.props.history.push('property/'+property.slug);
+    this.props.history.push('/property/'+property.slug);
   }
 
   ratings(rate){

@@ -23,6 +23,7 @@ class PropertyDetail extends Component{
 
 		this.back = this.back.bind(this);
 		this.changeTab = this.changeTab.bind(this);
+		this.gotoAgentDetail = this.gotoAgentDetail.bind(this);
 	}
 
 	back(){
@@ -52,6 +53,21 @@ class PropertyDetail extends Component{
       toast.error('something went wrong.');
     }
 	}
+
+	gotoAgentDetail(){
+		const property = this.state.propertyData;
+		this.props.dispatch(syncActions.agentID(property.vendor.id));
+		this.closeModal();
+    this.props.history.push('/agent-profile');
+  }
+
+  closeModal(){
+     document.getElementsByClassName("close")[0].click();
+     document.querySelector('body').classList.remove('modal-open');
+     document.getElementsByClassName("modal-backdrop")[0].remove();
+     document.body.style.padding = "0px";
+  }
+
 
 	render(){
 		const property = this.props;
@@ -107,7 +123,7 @@ class PropertyDetail extends Component{
 		              <li><a href="javascript:;" data-toggle="modal" data-target="#property-tour"> <img src="images/book_tour.png" alt="" /> <span>Book Tour</span> </a></li>
 		              <li><a href="javascript:;"> <img src="images/key.svg" alt="" /> <span>Apply</span> </a></li>
 		              <li><a href="javascript:;"> <img src="images/share.svg" alt="" /> <span>Share</span> </a></li>
-		              <li><a href="javascript:;"> <img src="images/agent.png" alt="" /> <span>Visit Agent</span> </a></li>
+		              <li><a href="javascript:;" onClick={this.gotoAgentDetail}> <img src="images/agent.png" alt="" /> <span>Visit Agent</span> </a></li>
 		            </ul>
 		            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
 		              <span aria-hidden="true">&times;</span>

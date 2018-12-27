@@ -96,6 +96,16 @@ export const getPropertyCount = (bodyFormData) => {
                 .then((r) => r);
 }
 
+export const getAgentProfile = (bodyFormData) => {
+        return axios({
+                method: 'get',
+                url: baseUrl + '/agentdetails',
+                params: bodyFormData,
+                headers: {'Accept': 'application/json'}
+                })
+                .then((r) => r);
+}
+
 /*********** With Reducers ***********/
 
 
