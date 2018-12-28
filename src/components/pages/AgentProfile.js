@@ -79,6 +79,8 @@ class AgentProfile extends Component{
 
 	render() {
 		const agentDetail = this.state.agentData;
+		const profile_image = (agentDetail.profile == "") ? "images/profile_list.jpg" : agentDetail.profile;
+		const cover_image = (agentDetail.cover_profile == "") ? "images/about.jpg" : agentDetail.cover_profile;
 		const PropertyListData = this.state.PropertyListData;
     var items = [];
     var displayProperty = "";
@@ -95,7 +97,7 @@ class AgentProfile extends Component{
 				<section className="hero-banner-section">
 		      <div className="container-fluid">
 		          <div className="row hero-banner">
-		            <img className="hero-inner-img" src="images/profile_banner.jpg" alt="" />
+		            <img className="hero-inner-img" src={cover_image} alt="" />
 		          </div>
 		      </div>
 		    </section>
@@ -104,7 +106,7 @@ class AgentProfile extends Component{
 		        <div className="container">
 		          <div className="row d-flex flex-nowrap xs-d-block xs-text-center col-xs-12">
 		            <div className="user-profile-picture">
-		              <img src="images/profile_list.jpg" alt="" />
+		              <img src={profile_image} alt="" />
 		            </div>
 		            <div className="w-100 pl-4 mt-5 xs-pl-0">
 		              <div className="user-profile-details">
